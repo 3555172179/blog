@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import { detectLocale, stripLocale, localePath, t, type Locale } from '../lib/i18n';
+
+interface Props {
+  locale?: Locale;
+}
+const locale = Astro.props.locale ?? detectLocale(Astro.url.pathname);
+const currentPath = Astro.url.pathname;
+const target: Locale = locale === 'zh' ? 'en' : 'zh';
+const strippedPath = stripLocale(currentPath);
+const ui = t(locale);
+
+// 推断当前是否文章 / 笔记详情页（/blog/<slug>/ 或 /notes/<slug>/）
+const articleMatch = strippedPath.match(/^\/(blog|notes)\/([^/]+?)\/?$/);
+
+let href = localePath(strippedPath, target);
+let missingInTarget = false;
+
+if (articleMatch) {
+  const [, kind, slug] = articleMatch;
+  const targetKind = `${kind}-${target}`;
+  const targetEntries = await getCollection(
+    targetKind as any,
+    ({ id, data }) => id === slug && !data.draft,
+  );
+  if (targetEntries.length === 0) {
+    // 目标语言没有这篇对应文章 — 跳到目标语言首页
+    href = `/${target}`;
+    missingInTarget = true;
+  }
+}
+
+const labelKey = missingInTarget ? 'noTranslation' : 'switchTo';
+const label = target === 'en' ? 'English' : '中文';
+---
+
+<a
+  href={href}
+  aria-label={missingInTarget ? `${ui.lang.noTranslation} · ${label}` : `${ui.lang.switchTo} · ${label}`}
+  title={missingInTarget ? `${ui.lang.noTranslation} (${label})` : `${ui.lang.switchTo} (${label})`}
+  class={`px-2.5 py-1.5 text-xs font-bold uppercase tracking-wider border-2 border-black dark:border-white hover:b-bg-yellow hover:text-black transition-colors ${missingInTarget ? 'opacity-60' : ''}`}
+>
+  {label}
+</a>

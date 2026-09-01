@@ -1,0 +1,39 @@
+---
+import { detectLocale, t, type Locale } from '../lib/i18n';
+
+interface Props {
+  page: { currentPage: number; lastPage: number; url: { prev?: string; next?: string; current: string } };
+  locale?: Locale;
+}
+const { page, locale = detectLocale(Astro.url.pathname) } = Astro.props;
+const { currentPage, lastPage, url } = page;
+const ui = t(locale);
+const baseBtn = 'inline-flex items-center gap-1 px-4 py-2 b-border-2 text-sm font-bold uppercase tracking-wider transition-transform';
+const activeCls = 'hover:b-bg-yellow hover:-translate-y-0.5';
+const disabledCls = 'opacity-30 cursor-not-allowed';
+---
+{lastPage > 1 && (
+  <nav class="flex justify-center items-center gap-3 mt-12" aria-label="Pagination">
+    {url.prev ? (
+      <a href={url.prev} class={`${baseBtn} ${activeCls}`}>
+        <span aria-hidden="true">←</span>{ui.pagination.prev.replace('← ', '')}
+      </a>
+    ) : (
+      <span class={`${baseBtn} ${disabledCls}`}>
+        <span aria-hidden="true">←</span>{ui.pagination.prev.replace('← ', '')}
+      </span>
+    )}
+    <span class="px-4 py-2 b-border-2 b-bg-black text-white font-mono font-bold tabular-nums">
+      {currentPage} / {lastPage}
+    </span>
+    {url.next ? (
+      <a href={url.next} class={`${baseBtn} ${activeCls}`}>
+        {ui.pagination.next.replace(' →', '')}<span aria-hidden="true">→</span>
+      </a>
+    ) : (
+      <span class={`${baseBtn} ${disabledCls}`}>
+        {ui.pagination.next.replace(' →', '')}<span aria-hidden="true">→</span>
+      </span>
+    )}
+  </nav>
+)}

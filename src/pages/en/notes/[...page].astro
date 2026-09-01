@@ -1,0 +1,49 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Pagination from '../../../components/Pagination.astro';
+import { getCollection } from 'astro:content';
+import { t } from '../../../lib/i18n';
+
+const locale = 'en' as const;
+const ui = t(locale);
+
+export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
+  const notes = (await getCollection('notes-en', ({ data }) => !data.draft)).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  );
+  return paginate(notes, { pageSize: 10 });
+};
+
+const { page } = Astro.props;
+const total = page.total;
+---
+
+<BaseLayout title={`${ui.notes.title} - Page ${page.currentPage}`} description={ui.notes.title} locale={locale}>
+  <header class="mb-12">
+    <span class="b-tag b-bg-pink mb-4">§ snippets</span>
+    <h1 class="display-1 mt-4 mb-3">{ui.notes.title}</h1>
+    <p class="text-sm font-mono font-bold uppercase tracking-wider">
+      [{total}] {total === 1 ? 'note' : 'notes'} total
+    </p>
+  </header>
+
+  <ul class="b-border-2 divide-y-2 divide-black dark:divide-white bg-white dark:bg-[#0a0a0a]">
+    {
+      page.data.map((n) => (
+        <li>
+          <a
+            href={`/en/notes/${n.id}/`}
+            class="list-row flex items-baseline justify-between gap-4 px-5 py-4 text-base hover:b-bg-yellow transition-colors"
+          >
+            <span class="font-bold">{n.data.title}</span>
+            <time class="text-xs font-mono font-bold uppercase tracking-wider tabular-nums shrink-0">
+              {n.data.pubDate.toLocaleDateString('en-CA')}
+            </time>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <Pagination page={page} locale={locale} />
+</BaseLayout>

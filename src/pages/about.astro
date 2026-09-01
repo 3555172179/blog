@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import { SITE } from '../consts';
+---
+
+<BaseLayout title="关于" description="关于作者">
+  <article class="prose dark:prose-invert max-w-none">
+    <h1>关于我</h1>
+    <p>
+      这里是 {SITE.author} 的个人博客。写技术文章与速记笔记，记录学习与思考。
+    </p>
+    <h2>联系方式</h2>
+    <div class="not-prose">
+      <SocialLinks />
+    </div>
+
+    <h2>关于这个站点</h2>
+    <p>
+      基于 <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro 5</a> + Tailwind CSS v4 构建，纯静态部署于 Vercel。
+      后续会集成一个个人工作台（<code>/workspace.html</code>）。
+    </p>
+  </article>
+</BaseLayout>

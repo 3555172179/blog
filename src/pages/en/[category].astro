@@ -1,0 +1,98 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+import { CATEGORIES, t, categoryLabel, categoryDesc, type Locale, type Category } from '../../lib/i18n';
+
+const locale: Locale = 'en';
+
+type Props = { category: Category };
+export const getStaticPaths = () => CATEGORIES.map((c) => ({ params: { category: c }, props: { category: c } }));
+
+const { category } = Astro.props as Props;
+
+const blogPosts = (await getCollection('blog-en', ({ data }) => !data.draft && data.category === category))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const notePosts = (await getCollection('notes-en', ({ data }) => !data.draft && data.category === category))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+type EnBlog = CollectionEntry<'blog-en'>;
+type EnNote = CollectionEntry<'notes-en'>;
+
+const items = [
+  ...blogPosts.map((e) => ({ kind: 'blog' as const, entry: e as EnBlog })),
+  ...notePosts.map((e) => ({ kind: 'notes' as const, entry: e as EnNote })),
+].sort((a, b) => b.entry.data.pubDate.valueOf() - a.entry.data.pubDate.valueOf());
+
+const ui = t(locale);
+const tagColorMap = ['b-bg-yellow', 'b-bg-black'];
+const styleFor = (tag: string) => {
+  let hash = 0;
+  for (let i = 0; i < tag.length; i++) hash = (hash * 31 + tag.charCodeAt(i)) >>> 0;
+  return tagColorMap[hash % 2];
+};
+---
+
+<BaseLayout
+  title={`${categoryLabel(category, locale)} · ${ui.siteTitle}`}
+  description={categoryDesc(category, locale)}
+  locale={locale}
+>
+  <header class="mb-12">
+    <a href="/en/" class="group inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider mb-6 hover:b-bg-yellow hover:px-2 transition-all">
+      <span aria-hidden="true" class="inline-block transition-transform group-hover:-translate-x-1">←</span>
+      {ui.nav.home}
+    </a>
+    <span class={`b-tag ${category === 'work' ? '' : 'b-bg-yellow'} mb-4 inline-block`}>§ {category}</span>
+    <h1 class="display-1 mt-4 mb-3">{categoryLabel(category, locale)}</h1>
+    <p class="text-base leading-relaxed max-w-xl">
+      {categoryDesc(category, locale)}
+    </p>
+    <p class="text-sm font-mono font-bold uppercase tracking-wider mt-4">
+      [{items.length}] {items.length === 1 ? 'item' : 'items'}
+    </p>
+  </header>
+
+  {
+    items.length === 0 ? (
+      <p class="b-border-2 b-bg-yellow p-6 inline-block font-bold">
+        {category === 'work' ? ui.home.workEmpty : category === 'study' ? ui.home.studyEmpty : ui.home.lifeEmpty}
+      </p>
+    ) : (
+      <div class="space-y-6">
+        {items.map((item) => {
+          if (item.kind === 'blog') {
+            const post: EnBlog = item.entry;
+            return (
+              <div>
+                <PostCard post={post} />
+                {post.data.tags.length > 0 && (
+                  <div class="mt-2 flex flex-wrap gap-1.5 ml-1">
+                    {post.data.tags.map((tag: string) => (
+                      <span class={`b-tag-chip ${styleFor(tag)}`}>#{tag}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          } else {
+            const note: EnNote = item.entry;
+            return (
+              <a
+                href={`/en/notes/${note.id}/`}
+                class="list-row group b-border-2 bg-white dark:bg-[#0a0a0a] flex items-baseline justify-between gap-4 px-5 py-4 hover:b-bg-yellow transition-colors"
+              >
+                <span class="font-bold">{note.data.title}</span>
+                <time class="text-xs font-mono font-bold uppercase tracking-wider shrink-0 tabular-nums">
+                  {note.data.pubDate.toLocaleDateString('en-CA')}
+                </time>
+              </a>
+            );
+          }
+        })}
+      </div>
+    )
+  }
+</BaseLayout>

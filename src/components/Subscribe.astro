@@ -1,0 +1,56 @@
+---
+import { BUTTONDOWN } from '../consts';
+import { detectLocale, type Locale } from '../lib/i18n';
+
+interface Props {
+  locale?: Locale;
+}
+const locale = Astro.props.locale ?? detectLocale(Astro.url.pathname);
+const en = locale === 'en';
+const action = `https://buttondown.email/${BUTTONDOWN.username}`;
+
+// 搁置状态：未启用时整个组件不渲染，不占版面。
+// 启用方法：1) 去 buttondown.email 注册拿 username；
+//          2) 把 src/consts.ts 的 BUTTONDOWN.username 填好；
+//          3) 把 enabled 改为 true —— UI 会自动出现。
+---
+
+{
+  BUTTONDOWN.enabled && (
+    <section class="my-10 p-6 border border-gray-200 dark:border-gray-800 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30">
+      <div class="flex items-start gap-3 mb-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" aria-hidden="true">
+          <rect width="20" height="16" x="2" y="4" rx="2" />
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+        </svg>
+        <div>
+          <h3 class="text-lg font-semibold mb-1">{en ? 'Email Subscription' : '订阅邮件'}</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            {en ? 'Get new posts and notes delivered to your inbox as soon as they go live.' : '新文章与笔记发布时，第一时间送到你邮箱。'}
+          </p>
+        </div>
+      </div>
+      <form
+        action={action}
+        method="post"
+        target="_blank"
+        class="flex flex-col sm:flex-row gap-2 max-w-md"
+      >
+        <input
+          type="email"
+          name="email"
+          placeholder="your@email.com"
+          required
+          autocomplete="email"
+          class="flex-1 px-3 py-2 rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 text-sm focus:outline-none focus:border-blue-500 min-w-0"
+        />
+        <button
+          type="submit"
+          class="px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium transition whitespace-nowrap"
+        >
+          {en ? 'Subscribe' : '订阅'}
+        </button>
+      </form>
+    </section>
+  )
+}

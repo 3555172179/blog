@@ -1,0 +1,259 @@
+---
+// 全站搜索组件：弹层 + 客户端 Fuse 懒加载
+// 按钮在 Header 中渲染，本组件只渲染弹层与脚本
+import { detectLocale, localePath, t, type Locale } from '../lib/i18n';
+
+interface Props {
+  locale?: Locale;
+}
+const locale = Astro.props.locale ?? detectLocale(Astro.url.pathname);
+const ui = t(locale);
+const indexUrl = localePath('/search-index.json', locale);
+const kindBlog = locale === 'en' ? 'Post' : '文章';
+const kindNote = locale === 'en' ? 'Note' : '笔记';
+---
+
+<dialog
+  id="search-dialog"
+  class="search-dialog"
+  data-locale={locale}
+  data-index-url={indexUrl}
+  data-no-match={ui.search.noMatch}
+  data-empty={ui.search.empty}
+  data-kind-blog={kindBlog}
+  data-kind-note={kindNote}
+>
+  <div class="flex items-center gap-2 px-4 py-3 border-b border-gray-200 dark:border-gray-800">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-gray-400">
+      <circle cx="11" cy="11" r="8" />
+      <path d="m21 21-4.3-4.3" />
+    </svg>
+    <input
+      id="search-input"
+      type="search"
+      placeholder={ui.search.placeholder}
+      autocomplete="off"
+      class="flex-1 bg-transparent outline-none text-sm placeholder:text-gray-400"
+    />
+    <kbd class="text-xs text-gray-400 border border-gray-200 dark:border-gray-700 rounded px-1.5 py-0.5">{ui.search.esc}</kbd>
+  </div>
+  <div id="search-results" class="max-h-[60vh] overflow-y-auto py-2"></div>
+  <p id="search-empty" class="hidden px-4 py-6 text-sm text-center text-gray-400">{ui.search.empty}</p>
+</dialog>
+
+<style is:global>
+  .search-dialog {
+    margin: 5vh auto;
+    width: min(640px, 92vw);
+    border: 1px solid rgb(229 231 235);
+    border-radius: 20px;
+    padding: 0;
+    background: white;
+    color: rgb(17 24 39);
+    box-shadow: 0 25px 50px -12px rgba(168, 85, 247, 0.25);
+  }
+  :where(.dark) .search-dialog {
+    background: rgb(17 24 39);
+    color: rgb(243 244 246);
+    border-color: rgb(55 65 81);
+  }
+  .search-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+  }
+  .search-dialog[open] {
+    animation: search-fade-in 0.15s ease-out;
+  }
+  @keyframes search-fade-in {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .search-result {
+    display: block;
+    padding: 0.75rem 1rem;
+    margin: 0 0.5rem;
+    border-radius: 8px;
+    transition: background 0.1s;
+  }
+  .search-result:hover,
+  .search-result.is-active {
+    background: rgb(243 244 246);
+  }
+  :where(.dark) .search-result:hover,
+  :where(.dark) .search-result.is-active {
+    background: rgb(31 41 55);
+  }
+  .search-result-title {
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: rgb(17 24 39);
+  }
+  :where(.dark) .search-result-title {
+    color: rgb(243 244 246);
+  }
+  .search-result-meta {
+    font-size: 0.75rem;
+    color: rgb(107 114 128);
+    margin-top: 0.125rem;
+  }
+</style>
+
+<script>
+  import Fuse from 'fuse.js';
+
+  let fuse: Fuse<any> | null = null;
+  let loading: Promise<void> | null = null;
+  let activeIndex = 0;
+
+  const dialog = document.getElementById('search-dialog') as HTMLDialogElement;
+  const input = document.getElementById('search-input') as HTMLInputElement;
+  const results = document.getElementById('search-results') as HTMLDivElement;
+  const empty = document.getElementById('search-empty') as HTMLParagraphElement;
+
+  // 从 dialog 的 data-* 属性读取语言相关字符串
+  const NO_MATCH = dialog?.dataset.noMatch ?? 'No matches';
+  const EMPTY = dialog?.dataset.empty ?? 'Type to start searching';
+  const KIND_BLOG = dialog?.dataset.kindBlog ?? 'Post';
+  const KIND_NOTE = dialog?.dataset.kindNote ?? 'Note';
+  const INDEX_URL = dialog?.dataset.indexUrl ?? '/search-index.json';
+
+  async function ensureIndex() {
+    if (fuse) return;
+    if (loading) return loading;
+    loading = (async () => {
+      const res = await fetch(INDEX_URL);
+      const items = await res.json();
+      fuse = new Fuse(items, {
+        keys: [
+          { name: 'title', weight: 0.5 },
+          { name: 'description', weight: 0.3 },
+          { name: 'tags', weight: 0.2 },
+          { name: 'body', weight: 0.1 },
+        ],
+        threshold: 0.35,
+        includeMatches: false,
+        minMatchCharLength: 2,
+      });
+    })();
+    return loading;
+  }
+
+  function escapeHtml(s: string): string {
+    return s
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function render(list: any[]) {
+    if (list.length === 0) {
+      results.innerHTML = '';
+      empty.textContent = fuse ? NO_MATCH : EMPTY;
+      empty.classList.remove('hidden');
+      return;
+    }
+    empty.classList.add('hidden');
+    activeIndex = 0;
+    results.innerHTML = list
+      .map(
+        (r, i) => `
+        <a href="${escapeHtml(r.item.url)}" class="search-result ${i === 0 ? 'is-active' : ''}" data-index="${i}">
+          <div class="search-result-title">${escapeHtml(r.item.title)}</div>
+          <div class="search-result-meta">
+            ${r.item.kind === 'blog' ? KIND_BLOG : KIND_NOTE}${r.item.tags?.length ? ' · ' + r.item.tags.map((t: string) => '#' + t).join(' ') : ''}
+          </div>
+        </a>
+      `
+      )
+      .join('');
+  }
+
+  function highlight(idx: number) {
+    const items = results.querySelectorAll<HTMLElement>('.search-result');
+    items.forEach((el, i) => {
+      el.classList.toggle('is-active', i === idx);
+      if (i === idx) el.scrollIntoView({ block: 'nearest' });
+    });
+  }
+
+  async function runSearch(q: string) {
+    await ensureIndex();
+    if (!fuse) return;
+    if (!q.trim()) {
+      render([]);
+      return;
+    }
+    const found = fuse.search(q, { limit: 12 });
+    render(found);
+  }
+
+  // 防抖
+  let timer: number | undefined;
+  input?.addEventListener('input', () => {
+    window.clearTimeout(timer);
+    timer = window.setTimeout(() => runSearch(input.value), 120);
+  });
+
+  // 键盘导航：↑ ↓ Enter
+  input?.addEventListener('keydown', (e: KeyboardEvent) => {
+    const items = results.querySelectorAll<HTMLElement>('.search-result');
+    if (!items.length) return;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      activeIndex = (activeIndex + 1) % items.length;
+      highlight(activeIndex);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      activeIndex = (activeIndex - 1 + items.length) % items.length;
+      highlight(activeIndex);
+    } else if (e.key === 'Enter') {
+      const a = items[activeIndex] as HTMLAnchorElement | undefined;
+      if (a) a.click();
+    }
+  });
+
+  // 打开 / 关闭
+  async function open() {
+    if (typeof dialog.showModal === 'function') {
+      dialog.showModal();
+    } else {
+      dialog.setAttribute('open', '');
+    }
+    await ensureIndex();
+    input.value = '';
+    render([]);
+    setTimeout(() => input.focus(), 30);
+  }
+  function close() {
+    if (typeof dialog.close === 'function') dialog.close();
+    else dialog.removeAttribute('open');
+  }
+  dialog?.addEventListener('click', (e) => {
+    // 点击 backdrop 关闭（dialog 内点击不触发）
+    const r = (e.target as HTMLElement).getBoundingClientRect();
+    if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) {
+      close();
+    }
+  });
+  dialog?.addEventListener('close', () => input?.blur());
+
+  // 触发：任意带 [data-search-trigger] 的元素 + Cmd/Ctrl+K
+  document.addEventListener('click', (e) => {
+    const t = e.target as HTMLElement;
+    if (t.closest('[data-search-trigger]')) {
+      e.preventDefault();
+      open();
+    }
+  });
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      dialog.open ? close() : open();
+    }
+  });
+
+  // 暴露给 onclick="window.__openSearch()"
+  (window as any).__openSearch = open;
+  (window as any).__closeSearch = close;
+</script>

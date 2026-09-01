@@ -1,0 +1,98 @@
+---
+import { detectLocale, t, type Locale } from '../lib/i18n';
+
+interface Props {
+  headings: { depth: number; slug: string; text: string }[];
+  locale?: Locale;
+}
+const { headings, locale = detectLocale(Astro.url.pathname) } = Astro.props;
+const en = locale === 'en';
+const toc = (headings ?? []).filter((h) => h.depth > 1 && h.depth < 4);
+const hasToc = toc.length > 0;
+const tocTitle = en ? 'Contents' : '目录';
+
+const itemsHtml = toc.map((h) => `
+  <li class="toc-item" style="padding-left:${(h.depth - 2) * 12}px">
+    <a href="#${h.slug}" data-toc-slug="${h.slug}" class="toc-link block hover:b-bg-yellow hover:text-black hover:px-2 -mx-2 px-2 transition-all">
+      ${h.text}
+    </a>
+  </li>
+`).join('');
+
+const list = `<ul class="toc-list space-y-1.5 text-sm">${itemsHtml}</ul>`;
+---
+
+{hasToc && (
+  <div class="w-full xl:w-56 xl:sticky xl:top-20 xl:shrink-0">
+    {/* 桌面端：固定侧栏 */}
+    <nav class="hidden xl:block" aria-label={tocTitle}>
+      <p class="b-tag b-bg-yellow mb-4">§ {tocTitle}</p>
+      <Fragment set:html={list} />
+    </nav>
+
+    {/* 窄屏：折叠抽屉，置于文章之上 */}
+    <details class="xl:hidden b-border-2 bg-white dark:bg-[#0a0a0a]">
+      <summary class="cursor-pointer select-none px-4 py-3 b-bg-black text-white font-bold uppercase tracking-wider text-xs hover:b-bg-yellow hover:text-black transition">
+        § {tocTitle}
+      </summary>
+      <div class="px-4 py-3">
+        <Fragment set:html={list} />
+      </div>
+    </details>
+  </div>
+)}
+
+{hasToc && (
+  <style is:global>
+    .toc-link {
+      border-left: 3px solid transparent;
+      margin-left: -3px;
+      padding: 0.25rem 0.5rem;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .toc-link.toc-active {
+      color: #000;
+      border-left-color: #000;
+      background: var(--b-yellow);
+      font-weight: 800;
+    }
+    :where(.dark) .toc-link.toc-active {
+      color: #000;
+      border-left-color: #000;
+      background: var(--b-yellow);
+    }
+  </style>
+)}
+
+{hasToc && (
+  <script is:inline>
+    (function () {
+      var links = document.querySelectorAll('[data-toc-slug]');
+      var headings = document.querySelectorAll('article h2[id], article h3[id]');
+      if (!links.length || !headings.length) return;
+
+      function setActive(slug) {
+        links.forEach(function (l) {
+          l.classList.toggle('toc-active', l.getAttribute('data-toc-slug') === slug);
+        });
+      }
+
+      var visibleHeadings = [];
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) visibleHeadings.push(entry.target);
+          else visibleHeadings = visibleHeadings.filter(function (h) { return h !== entry.target; });
+        });
+        if (visibleHeadings.length === 0) return;
+        visibleHeadings.sort(function (a, b) {
+          return a.getBoundingClientRect().top - b.getBoundingClientRect().top;
+        });
+        setActive(visibleHeadings[0].id);
+      }, {
+        rootMargin: '0px 0px -70% 0px',
+        threshold: 0,
+      });
+      headings.forEach(function (h) { observer.observe(h); });
+    })();
+  </script>
+)}

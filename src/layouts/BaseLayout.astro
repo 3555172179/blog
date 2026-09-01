@@ -1,0 +1,93 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Search from '../components/Search.astro';
+import { SITE } from '../consts';
+import { detectLocale, localePath, t, type Locale } from '../lib/i18n';
+
+interface Props {
+  title?: string;
+  description?: string;
+  type?: 'website' | 'article';
+  containerClass?: string;
+  locale?: Locale;
+}
+
+const {
+  title,
+  description,
+  type = 'website',
+  containerClass = 'max-w-3xl',
+  locale = detectLocale(Astro.url.pathname),
+} = Astro.props;
+
+const ui = t(locale);
+const baseDesc = description ?? ui.siteDesc;
+const siteTitle = ui.siteTitle;
+const fullTitle = title ? `${title} - ${siteTitle}` : siteTitle;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.url).toString();
+
+// hreflang：每个语言版本互链 + x-default 指向默认语言版本
+const alt = (l: Locale) => new URL(localePath(Astro.url.pathname.replace(/^\/en/, ''), l), Astro.site ?? SITE.url).toString();
+const ogLocale = locale === 'en' ? 'en_US' : 'zh_CN';
+---
+
+<!doctype html>
+<html lang={locale === 'en' ? 'en' : 'zh-CN'} class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={baseDesc} />
+    <link rel="canonical" href={canonical} />
+
+    {/* hreflang for SEO 双语索引 */}
+    <link rel="alternate" hreflang="zh-CN" href={alt('zh')} />
+    <link rel="alternate" hreflang="en" href={alt('en')} />
+    <link rel="alternate" hreflang="x-default" href={alt('zh')} />
+
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={baseDesc} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="alternate" type="application/rss+xml" title={ui.siteTitle} href={localePath('/rss.xml', locale)} />
+
+    {/* 防止主题闪烁：在首屏渲染前应用已存主题 */}
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (t === 'dark' || (!t && prefersDark)) {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <Header locale={locale} />
+    <main class={`flex-1 w-full ${containerClass} mx-auto px-4 py-8`}>
+      <slot />
+    </main>
+    <Footer locale={locale} />
+    <Search locale={locale} />
+
+    <script is:inline>
+      window.__toggleTheme = function () {
+        var html = document.documentElement;
+        var isDark = html.classList.toggle('dark');
+        try {
+          localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        } catch (e) {}
+      };
+    </script>
+  </body>
+</html>

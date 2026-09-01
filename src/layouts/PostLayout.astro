@@ -1,0 +1,96 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import TOC from '../components/TOC.astro';
+import Comments from '../components/Comments.astro';
+import Subscribe from '../components/Subscribe.astro';
+import ShareButtons from '../components/ShareButtons.astro';
+import { SITE } from '../consts';
+import { localePath, t, type Locale } from '../lib/i18n';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'blog-zh'> | CollectionEntry<'blog-en'> | CollectionEntry<'notes-zh'> | CollectionEntry<'notes-en'>;
+  headings: any[];
+  collection: 'blog' | 'notes';
+  locale: Locale;
+}
+
+const { post, headings, collection, locale } = Astro.props;
+const ui = t(locale);
+const fmt = (d: Date) =>
+  d.toLocaleDateString(locale === 'en' ? 'en-US' : 'zh-CN', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }).toUpperCase();
+const listHref = localePath(collection === 'blog' ? '/blog' : '/notes', locale);
+const backLabel = collection === 'blog' ? ui.blog.back : ui.notes.back;
+const postPath = localePath(collection === 'blog' ? `/blog/${post.id}/` : `/notes/${post.id}/`, locale);
+const postUrl = new URL(postPath, SITE.url).toString();
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  type="article"
+  containerClass="max-w-6xl"
+  locale={locale}
+>
+  {/* 窄屏：vertical 堆叠，TOC 在文章之上；桌面：horizontal 横排，TOC 在右侧 sticky。
+      两种布局靠 TOC 自身 w-full xl:w-56 + sticky 切换。 */}
+  <div class="flex flex-col-reverse xl:flex-row gap-6 xl:gap-12">
+    <article class="prose dark:prose-invert max-w-none flex-1 min-w-0">
+      <header class="not-prose mb-12">
+        <a
+          href={listHref}
+          class="group inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider mb-8 hover:b-bg-yellow hover:px-2 transition-all"
+        >
+          <span aria-hidden="true" class="inline-block transition-transform group-hover:-translate-x-1">←</span>
+          {backLabel}
+        </a>
+
+        <h1 class="display-1 mb-4">{post.data.title}</h1>
+        <div aria-hidden="true" class="not-prose mb-8 flex items-center gap-2">
+          <span class="inline-block w-16 h-1.5 b-bg-yellow"></span>
+          <span class="inline-block w-3 h-1.5 bg-black dark:bg-white"></span>
+          <span class="inline-block w-1.5 h-1.5 bg-black dark:bg-white"></span>
+        </div>
+
+        <div class="not-prose flex flex-wrap items-center gap-2 mb-2">
+          <time
+            datetime={post.data.pubDate.toISOString()}
+            class="b-tag"
+          >
+            {fmt(post.data.pubDate)}
+          </time>
+          {
+            post.data.updatedDate && (
+              <span class="b-tag b-bg-yellow">
+                UPDATED {fmt(post.data.updatedDate)}
+              </span>
+            )
+          }
+          {
+            post.data.tags.map((t: string) => (
+              <span class="b-tag-chip">
+                #{t}
+              </span>
+            ))
+          }
+        </div>
+      </header>
+
+      <div class="drop-cap">
+        <slot />
+      </div>
+      <ShareButtons url={postUrl} title={post.data.title} description={post.data.description ?? ''} />
+      <Subscribe locale={locale} />
+      <Comments
+        pageId={post.id}
+        pageUrl={postUrl}
+        pageTitle={post.data.title}
+      />
+    </article>
+    <TOC headings={headings} />
+  </div>
+</BaseLayout>

@@ -1,0 +1,243 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* class 策略的暗黑模式 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+    "Source Han Sans SC", sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "SFMono-Regular", Menlo, Consolas,
+    "Liberation Mono", monospace;
+  /* Brutalism 配色：仅 黑 + 白 + 黄。色彩锚点只一个。 */
+  --b-yellow: #facc15;
+}
+
+html {
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  @apply bg-white text-black;
+  font-size: 17px;
+  line-height: 1.75;
+  font-feature-settings: "kern", "liga", "calt";
+}
+
+html.dark body {
+  @apply bg-[#0a0a0a] text-white;
+}
+
+/* ============================================
+   Brutalism 工具类（黑 + 黄 二色制）
+   ============================================ */
+
+/* 黑粗边框 */
+.b-border   { border: 3px solid #000; }
+.b-border-2 { border: 4px solid #000; }
+html.dark .b-border,
+html.dark .b-border-2 { border-color: #fff; }
+
+/* 硬阴影：仅 黑 / 黄 */
+.b-shadow-yellow { box-shadow: 6px 6px 0 0 var(--b-yellow); }
+.b-shadow-black  { box-shadow: 6px 6px 0 0 #000; }
+html.dark .b-shadow-black { box-shadow: 6px 6px 0 0 #fff; }
+
+/* hover 时偏移变大 */
+.b-card {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.b-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 10px 10px 0 0 #000;
+}
+html.dark .b-card:hover { box-shadow: 10px 10px 0 0 #fff; }
+
+/* 纯色块（黄、黑） */
+.b-bg-yellow { background: var(--b-yellow); }
+.b-bg-black  { background: #000; color: #fff; }
+html.dark .b-bg-black { background: #fff; color: #000; }
+
+/* 黑底白字小标 */
+.b-tag {
+  display: inline-block;
+  padding: 0.25rem 0.625rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  background: #000;
+  color: #fff;
+  border: 2px solid #000;
+}
+html.dark .b-tag { background: #fff; color: #000; border-color: #fff; }
+
+/* 标签 chip：黑底白字（hover 翻成黄底黑字） */
+.b-tag-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
+  background: #000;
+  color: #fff;
+  border: 2px solid #000;
+}
+html.dark .b-tag-chip { background: #fff; color: #000; border-color: #fff; }
+
+/* Display 字号 —— 收紧字距 + 重字重 + 紧行高，保留 brutalist 冲击力 */
+.display-1 { font-size: clamp(2rem, 6vw, 4.5rem); font-weight: 900; letter-spacing: -0.04em; line-height: 0.95; }
+.display-2 { font-size: clamp(1.75rem, 4.5vw, 3rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.0; }
+.display-3 { font-size: clamp(1.25rem, 2.5vw, 1.75rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; }
+
+/* 中文标题：负字距 + 紧行高仍能保留（方块字间距天然大，轻微收紧不挤压）；
+   但 max 字号比英文小，避免一行塞不下；同时行高微调到 1.15 给字模上下留白 */
+.display-1:lang(zh) {
+  font-size: clamp(1.75rem, 5vw, 3rem);
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+}
+.display-2:lang(zh) {
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+
+/* 首字下沉：桌面 5rem，窄屏 3rem 防止错位 */
+.drop-cap::first-letter {
+  float: left;
+  font-size: 3rem;
+  line-height: 0.85;
+  font-weight: 900;
+  margin: 0.3rem 0.5rem 0 0;
+  background: var(--b-yellow);
+  color: #000;
+  border: 3px solid #000;
+  padding: 0.25rem 0.5rem;
+}
+@media (min-width: 640px) {
+  .drop-cap::first-letter {
+    font-size: 5rem;
+  }
+}
+html.dark .drop-cap::first-letter { border-color: #fff; }
+
+/* 大引号 */
+.b-quote {
+  position: relative;
+  padding-left: 2.5rem;
+  font-weight: 600;
+  font-style: italic;
+}
+.b-quote::before {
+  content: '"';
+  position: absolute;
+  left: -0.5rem;
+  top: -1.5rem;
+  font-size: 5rem;
+  line-height: 1;
+  color: #000;
+  font-weight: 900;
+}
+html.dark .b-quote::before { color: var(--b-yellow); }
+
+/* Zine 批注：黄底黑字 */
+.b-note {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.15rem 0.45rem;
+  background: var(--b-yellow);
+  color: #000;
+  border: 2px solid #000;
+  transform: rotate(-2deg);
+}
+
+/* prose 排版 */
+.prose {
+  font-size: 1.0625rem;
+  line-height: 1.85;
+}
+.prose h2 {
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin-top: 3em;
+  margin-bottom: 1em;
+  padding-bottom: 0.3em;
+  border-bottom: 3px solid currentColor;
+}
+.prose blockquote {
+  border-left: 4px solid #000;
+  padding-left: 1.5rem;
+  font-weight: 600;
+}
+html.dark .prose blockquote { border-color: #fff; }
+.prose code:not(pre code) {
+  background: var(--b-yellow);
+  border: 2px solid #000;
+  padding: 0.05em 0.35em;
+  border-radius: 0;
+  font-size: 0.9em;
+  font-weight: 700;
+  color: #000;
+}
+html.dark .prose code:not(pre code) {
+  background: var(--b-yellow);
+  color: #000;
+  border-color: #fff;
+}
+.prose a {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  font-weight: 600;
+}
+.prose a:hover {
+  background: var(--b-yellow);
+  color: #000;
+}
+
+/* 选区高亮：黄底黑字 */
+::selection { background: var(--b-yellow); color: #000; }
+
+/* 滚动条：黑方块 */
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: #000;
+  border: 3px solid #fff;
+}
+html.dark ::-webkit-scrollbar-thumb { background: #fff; border-color: #0a0a0a; }
+::-webkit-scrollbar-thumb:hover { background: var(--b-yellow); border-color: #fff; }
+
+/* 列表 hover：滑入 → */
+.list-row {
+  position: relative;
+  transition: padding-left 0.2s ease, color 0.2s ease;
+}
+.list-row::after {
+  content: "→";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(-8px, -50%);
+  opacity: 0;
+  color: #000;
+  font-weight: 700;
+  font-size: 1.1em;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+html.dark .list-row::after { color: #fff; }
+.list-row:hover { padding-left: 8px; }
+.list-row:hover::after { opacity: 1; transform: translate(0, -50%); }

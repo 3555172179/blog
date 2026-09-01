@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import Subscribe from '../components/Subscribe.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '../consts';
+import { t, categoryPath, CATEGORIES, type Locale, type Category } from '../lib/i18n';
+
+const locale: Locale = 'zh';
+const ui = t(locale);
+
+// 跨 blog + notes，按 category 分组，每个分类取最近 5 条
+async function getRecentByCategory(category: Category, limit: number = 5) {
+  const blog = await getCollection('blog-zh', ({ data }) => !data.draft && data.category === category);
+  const notes = await getCollection('notes-zh', ({ data }) => !data.draft && data.category === category);
+  return [
+    ...blog.map((e) => ({ kind: 'blog' as const, date: e.data.pubDate, entry: e, title: e.data.title, tags: e.data.tags, description: e.data.description })),
+    ...notes.map((e) => ({ kind: 'notes' as const, date: e.data.pubDate, entry: e, title: e.data.title, tags: e.data.tags })),
+  ]
+    .sort((a, b) => b.date.valueOf() - a.date.valueOf())
+    .slice(0, limit);
+}
+
+const items = {
+  work:  await getRecentByCategory('work'),
+  study: await getRecentByCategory('study'),
+  life:  await getRecentByCategory('life'),
+};
+
+const sectionTitles: Record<Category, string> = {
+  work: ui.home.recentWork,
+  study: ui.home.recentStudy,
+  life: ui.home.recentLife,
+};
+const sectionViewAll: Record<Category, string> = {
+  work: ui.home.viewWork,
+  study: ui.home.viewStudy,
+  life: ui.home.viewLife,
+};
+const sectionEmpty: Record<Category, string> = {
+  work: ui.home.workEmpty,
+  study: ui.home.studyEmpty,
+  life: ui.home.lifeEmpty,
+};
+
+const avatarInitial = SITE.author.charAt(0).toUpperCase();
+---
+
+<BaseLayout description={SITE.description} locale={locale}>
+  <section class="relative pt-4 pb-20 mb-20">
+    <div aria-hidden="true" class="absolute top-4 -right-4 w-24 h-24 b-bg-yellow -rotate-6 hidden md:block"></div>
+    <div aria-hidden="true" class="absolute top-72 left-32 w-3 h-3 bg-black dark:bg-white hidden md:block"></div>
+    <div aria-hidden="true" class="absolute top-80 left-44 w-2 h-2 b-bg-yellow hidden md:block"></div>
+
+    <div class="flex items-center gap-3 mb-6">
+      <span class="b-tag">v1.0</span>
+    </div>
+
+    <h1 class="display-1 mb-10">
+      {SITE.author.split('').map((ch) => (
+        <span class="inline-block hover:-translate-y-1 transition-transform">{ch}</span>
+      ))}
+      <span class="inline-block b-bg-yellow b-border-2 px-3 ml-1 -rotate-2">.</span>
+    </h1>
+
+    <div class="relative inline-block max-w-2xl mb-12 b-shadow-yellow z-10">
+      <div class="relative b-border bg-white dark:bg-[#0a0a0a] p-5">
+        <p class="text-lg leading-relaxed relative z-10">
+          {ui.bio}
+        </p>
+      </div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row items-start gap-8 relative z-0">
+      <div class="relative shrink-0">
+        <div aria-hidden="true" class="absolute -inset-1 b-bg-yellow -rotate-2"></div>
+        <img
+          src={SITE.avatar}
+          alt={SITE.author}
+          width="120"
+          height="120"
+          class="relative w-[120px] h-[120px] object-cover b-border-2 bg-white"
+          onerror={`this.onerror=null;this.replaceWith(Object.assign(document.createElement('div'),{className:'relative w-[120px] h-[120px] b-border-2 b-bg-yellow flex items-center justify-center text-5xl font-black text-black',textContent:'${avatarInitial}'}))`}
+        />
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <div class="flex items-center gap-2">
+          <span class="b-tag">{locale === 'en' ? 'find me' : '找到我'}</span>
+          <span aria-hidden="true" class="font-mono">→</span>
+        </div>
+        <SocialLinks locale={locale} />
+      </div>
+    </div>
+  </section>
+
+  {CATEGORIES.map((cat) => (
+    <section class="mb-20">
+      <div class="flex items-end justify-between mb-8 gap-4 flex-wrap">
+        <div class="flex items-center gap-3">
+          <span class={`b-tag ${cat === 'work' ? '' : 'b-bg-yellow'}`}>§ {cat}</span>
+          <h2 class="display-2">{sectionTitles[cat]}</h2>
+        </div>
+        <a
+          href={categoryPath(cat, locale)}
+          class="b-border px-4 py-2 text-sm font-bold uppercase tracking-wider hover:b-bg-yellow hover:-rotate-1 transition-all inline-flex items-center gap-2"
+        >
+          {sectionViewAll[cat]} <span aria-hidden="true">→</span>
+        </a>
+      </div>
+      {items[cat].length === 0 ? (
+        <p class="b-border-2 b-bg-yellow p-6 inline-block font-bold">{sectionEmpty[cat]}</p>
+      ) : (
+        <div class="grid gap-6">
+          {items[cat].map((item) =>
+            item.kind === 'blog' ? (
+              <PostCard post={item.entry as any} />
+            ) : (
+              <a
+                href={`/notes/${item.entry.id}/`}
+                class="list-row group b-border-2 bg-white dark:bg-[#0a0a0a] flex items-baseline justify-between gap-4 px-5 py-4 hover:b-bg-yellow transition-colors"
+              >
+                <span class="font-bold">{item.title}</span>
+                <time class="text-xs font-mono uppercase tracking-wider tabular-nums shrink-0">
+                  {item.date.toLocaleDateString('en-CA')}
+                </time>
+              </a>
+            )
+          )}
+        </div>
+      )}
+    </section>
+  ))}
+
+  <Subscribe locale={locale} />
+</BaseLayout>

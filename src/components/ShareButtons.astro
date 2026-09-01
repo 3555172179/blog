@@ -1,0 +1,103 @@
+---
+import { SITE } from '../consts';
+import { detectLocale, t, type Locale } from '../lib/i18n';
+
+interface Props {
+  url: string;
+  title: string;
+  description?: string;
+  locale?: Locale;
+}
+
+const { url, title, description = '', locale = detectLocale(Astro.url.pathname) } = Astro.props;
+const ui = t(locale);
+const encUrl = encodeURIComponent(url);
+const encTitle = encodeURIComponent(title);
+const encDesc = encodeURIComponent(description);
+
+const shareLabel = ui.post.share;
+
+// 各平台分享 intent 链接（无需 JS 即可工作）
+const shareLinks = [
+  {
+    name: 'X',
+    href: `https://twitter.com/intent/tweet?url=${encUrl}&text=${encTitle}`,
+    svg: '<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.91l4.713 6.231 5.45 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>',
+  },
+  {
+    name: 'Facebook',
+    href: `https://www.facebook.com/sharer/sharer.php?u=${encUrl}`,
+    svg: '<path d="M9.101 23.691v-7.98H5.932v-4.65h3.169V8.313c0-3.137 1.868-4.866 4.731-4.866 1.373 0 2.552.102 2.895.146v3.358l-1.985-.001c-1.554 0-1.854.738-1.854 1.822v2.392h3.708l-.483 4.65h-3.225v7.98H9.101z"/>',
+  },
+  {
+    name: '微博',
+    href: `https://service.weibo.com/share/share.php?url=${encUrl}&title=${encTitle}${encDesc ? '&content=' + encDesc : ''}`,
+    svg: '<path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.737 5.439v.004zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.82.972.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.09-.313-.36-.177-.59.138-.227.436-.343.672-.248.239.09.319.351.194.589v-.004zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.64 4.318-.384 5.132-2.182.797-1.766-.231-3.642-2.161-4.146zm7.563-1.495c-.346-.105-.57-.18-.405-.615.375-1.023.42-1.886.011-2.509-.778-1.184-2.882-1.123-5.291-.034 0 0-.756.331-.563-.271.376-1.215.317-2.215-.255-2.79-1.293-1.302-4.731.063-7.685 3.029C1.671 8.566.245 11.097.245 13.255c0 4.135 5.281 6.642 10.336 6.642 6.695 0 11.137-3.905 11.137-6.998.001-3.097-3.587-4.872-5.659-5.521zm-.793-3.535c.305-.053.611.061.835.291.23.227.341.546.292.852l-.176 1.143s.131-.42-.245-.602c-.36-.18-.616.024-.616.024l-.09-1.708zm.871 1.553c.225-.035.42-.198.493-.42.072-.225.018-.467-.148-.617-.166-.151-.418-.18-.616-.071-.198.107-.31.314-.301.529l-.058 1.708s.27-.484.63-.612v-.517z"/>',
+  },
+  {
+    name: 'LinkedIn',
+    href: `https://www.linkedin.com/sharing/share-offsite/?url=${encUrl}`,
+    svg: '<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>',
+  },
+];
+
+const linkIcon = '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>';
+---
+
+<div class="flex items-center gap-2 flex-wrap my-12 pt-8 border-t-[3px] border-black dark:border-white">
+  <span class="b-tag b-bg-yellow">{shareLabel}</span>
+  <div class="flex items-center gap-1.5">
+    {
+      shareLinks.map((s) => (
+        <a
+          href={s.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${shareLabel} ${s.name}`}
+          title={`${shareLabel} ${s.name}`}
+          class="inline-flex items-center justify-center w-10 h-10 b-border-2 text-black dark:text-white hover:b-bg-yellow hover:-translate-y-1 transition-transform"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <Fragment set:html={s.svg} />
+          </svg>
+        </a>
+      ))
+    }
+    <button
+      type="button"
+      data-copy-url={url}
+      aria-label={locale === 'en' ? 'Copy link' : '复制链接'}
+      title={locale === 'en' ? 'Copy link' : '复制链接'}
+      class="share-copy-btn inline-flex items-center justify-center w-10 h-10 b-border-2 text-black dark:text-white hover:b-bg-yellow hover:-translate-y-1 transition-transform"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+        <Fragment set:html={linkIcon} />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script is:inline>
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!(t instanceof Element)) return;
+    var btn = t.closest('.share-copy-btn');
+    if (!btn) return;
+    var url = btn.getAttribute('data-copy-url');
+    if (!url) return;
+    navigator.clipboard.writeText(url).then(
+      function () {
+        var orig = btn.getAttribute('title') || '复制链接';
+        btn.setAttribute('title', '已复制 ✓');
+        btn.classList.add('text-green-600', 'dark:text-green-400');
+        setTimeout(function () {
+          btn.setAttribute('title', orig);
+          btn.classList.remove('text-green-600', 'dark:text-green-400');
+        }, 1500);
+      },
+      function () {
+        btn.setAttribute('title', '复制失败，请手动复制');
+      }
+    );
+  });
+</script>
