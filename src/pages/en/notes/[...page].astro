@@ -20,21 +20,26 @@ const total = page.total;
 ---
 
 <BaseLayout title={`${ui.notes.title} - Page ${page.currentPage}`} description={ui.notes.title} locale={locale}>
-  <header class="mb-12">
-    <span class="b-tag b-bg-pink mb-4">§ snippets</span>
-    <h1 class="display-1 mt-4 mb-3">{ui.notes.title}</h1>
-    <p class="text-sm font-mono font-bold uppercase tracking-wider">
+  <header class="mb-16">
+    <span class="b-tag b-bg-yellow mb-6">§ snippets</span>
+    <h1 class="display-1 mt-6 mb-4">{ui.notes.title}</h1>
+    <div class="flex items-center gap-3 mb-4">
+      <span class="inline-block w-20 h-2 b-bg-yellow"></span>
+      <span class="inline-block w-4 h-2 bg-black dark:bg-white"></span>
+      <span class="inline-block w-2 h-2 bg-black dark:bg-white"></span>
+    </div>
+    <p class="text-sm font-mono font-black uppercase tracking-wider">
       [{total}] {total === 1 ? 'note' : 'notes'} total
     </p>
   </header>
 
-  <ul class="b-border-2 divide-y-2 divide-black dark:divide-white bg-white dark:bg-[#0a0a0a]">
+  <ul class="b-border-2 divide-y-[5px] divide-black dark:divide-white bg-white dark:bg-[#0a0a0a]">
     {
       page.data.map((n) => (
         <li>
           <a
             href={`/en/notes/${n.id}/`}
-            class="list-row flex items-baseline justify-between gap-4 px-5 py-4 text-base hover:b-bg-yellow transition-colors"
+            class="list-row flex items-baseline justify-between gap-4 px-6 py-5 text-lg hover:b-bg-yellow transition-colors"
           >
             <span class="font-bold">{n.data.title}</span>
             <time class="text-xs font-mono font-bold uppercase tracking-wider tabular-nums shrink-0">

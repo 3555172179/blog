@@ -32,10 +32,10 @@ const list = `<ul class="toc-list space-y-1.5 text-sm">${itemsHtml}</ul>`;
 
     {/* 窄屏：折叠抽屉，置于文章之上 */}
     <details class="xl:hidden b-border-2 bg-white dark:bg-[#0a0a0a]">
-      <summary class="cursor-pointer select-none px-4 py-3 b-bg-black text-white font-bold uppercase tracking-wider text-xs hover:b-bg-yellow hover:text-black transition">
+      <summary class="cursor-pointer select-none px-5 py-4 b-bg-black text-white font-black uppercase tracking-wider text-sm hover:b-bg-yellow hover:text-black transition">
         § {tocTitle}
       </summary>
-      <div class="px-4 py-3">
+      <div class="px-5 py-4 border-t-[5px] border-black dark:border-white">
         <Fragment set:html={list} />
       </div>
     </details>

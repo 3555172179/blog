@@ -44,9 +44,9 @@ const shareLinks = [
 const linkIcon = '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>';
 ---
 
-<div class="flex items-center gap-2 flex-wrap my-12 pt-8 border-t-[3px] border-black dark:border-white">
+<div class="flex items-center gap-3 flex-wrap my-16 pt-10 border-t-[6px] border-black dark:border-white">
   <span class="b-tag b-bg-yellow">{shareLabel}</span>
-  <div class="flex items-center gap-1.5">
+  <div class="flex items-center gap-2">
     {
       shareLinks.map((s) => (
         <a
@@ -55,9 +55,9 @@ const linkIcon = '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.7
           rel="noopener noreferrer"
           aria-label={`${shareLabel} ${s.name}`}
           title={`${shareLabel} ${s.name}`}
-          class="inline-flex items-center justify-center w-10 h-10 b-border-2 text-black dark:text-white hover:b-bg-yellow hover:-translate-y-1 transition-transform"
+          class="inline-flex items-center justify-center w-11 h-11 b-border text-black dark:text-white hover:b-bg-yellow hover:-translate-y-1 hover:-rotate-3 transition-all"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <Fragment set:html={s.svg} />
           </svg>
         </a>
@@ -68,9 +68,9 @@ const linkIcon = '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.7
       data-copy-url={url}
       aria-label={locale === 'en' ? 'Copy link' : '复制链接'}
       title={locale === 'en' ? 'Copy link' : '复制链接'}
-      class="share-copy-btn inline-flex items-center justify-center w-10 h-10 b-border-2 text-black dark:text-white hover:b-bg-yellow hover:-translate-y-1 transition-transform"
+      class="share-copy-btn inline-flex items-center justify-center w-11 h-11 b-border text-black dark:text-white hover:b-bg-yellow hover:-translate-y-1 hover:-rotate-3 transition-all"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
         <Fragment set:html={linkIcon} />
       </svg>
     </button>

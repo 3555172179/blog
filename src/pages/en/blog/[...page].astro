@@ -21,14 +21,19 @@ const total = page.total;
 ---
 
 <BaseLayout title={`${ui.blog.title} - Page ${page.currentPage}`} description={ui.blog.title} locale={locale}>
-  <header class="mb-12">
-    <span class="b-tag b-bg-yellow mb-4">§ archive</span>
-    <h1 class="display-1 mt-4 mb-3">{ui.blog.title}</h1>
-    <p class="text-sm font-mono font-bold uppercase tracking-wider">
+  <header class="mb-16">
+    <span class="b-tag b-bg-yellow mb-6">§ archive</span>
+    <h1 class="display-1 mt-6 mb-4">{ui.blog.title}</h1>
+    <div class="flex items-center gap-3 mb-4">
+      <span class="inline-block w-20 h-2 b-bg-yellow"></span>
+      <span class="inline-block w-4 h-2 bg-black dark:bg-white"></span>
+      <span class="inline-block w-2 h-2 bg-black dark:bg-white"></span>
+    </div>
+    <p class="text-sm font-mono font-black uppercase tracking-wider">
       [{total}] {total === 1 ? 'post' : 'posts'} total
     </p>
   </header>
-  <div class="grid gap-6">
+  <div class="grid gap-8">
     {page.data.map((post) => <PostCard post={post} />)}
   </div>
   <Pagination page={page} locale={locale} />

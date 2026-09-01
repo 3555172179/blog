@@ -44,13 +44,18 @@ const totalTags =
 ---
 
 <BaseLayout title={ui.tags.title} description={ui.tags.description} locale={locale}>
-  <header class="mb-12">
-    <span class="b-tag mb-4">§ browse</span>
-    <h1 class="display-1 mt-4 mb-3">{ui.tags.title}</h1>
-    <p class="text-sm leading-relaxed max-w-xl">
+  <header class="mb-16">
+    <span class="b-tag mb-6">§ browse</span>
+    <h1 class="display-1 mt-6 mb-4">{ui.tags.title}</h1>
+    <div class="flex items-center gap-3 mb-4">
+      <span class="inline-block w-20 h-2 b-bg-yellow"></span>
+      <span class="inline-block w-4 h-2 bg-black dark:bg-white"></span>
+      <span class="inline-block w-2 h-2 bg-black dark:bg-white"></span>
+    </div>
+    <p class="text-base leading-relaxed max-w-xl font-medium">
       {ui.tags.description}
     </p>
-    <p class="text-sm font-mono font-bold uppercase tracking-wider mt-4">
+    <p class="text-sm font-mono font-black uppercase tracking-wider mt-4">
       [{totalTags}] tags · 3 sections
     </p>
   </header>
@@ -70,21 +75,21 @@ const totalTags =
           </div>
           <a
             href={localePath(`/${cat}`, locale)}
-            class="text-xs font-bold uppercase tracking-wider hover:b-bg-yellow hover:px-2 transition-all"
+            class="b-btn text-xs py-2 px-3"
           >
             {ui.home[`view${cat.charAt(0).toUpperCase() + cat.slice(1)}` as 'viewWork']} →
           </a>
         </div>
-        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 max-w-xl">
+        <p class="text-base font-medium leading-relaxed mb-5 max-w-xl">
           {catDesc[cat]}
         </p>
-        <div class="flex flex-wrap items-start gap-3">
+        <div class="flex flex-wrap items-start gap-4">
           {entries.map(([tag, n], i) => {
             const rotation = ['-rotate-2', 'rotate-1', '-rotate-1', 'rotate-2'][i % 4];
             return (
               <a
                 href={localePath(`/tags/${encodeURIComponent(tag)}/`, locale)}
-                class={`group inline-flex items-center gap-2 b-border-2 ${styleFor(tag)} px-2.5 py-1 ${rotation} hover:rotate-0 hover:scale-105 transition-transform font-black`}
+                class={`group inline-flex items-center gap-2 b-border-2 ${styleFor(tag)} px-3 py-1.5 ${rotation} hover:rotate-0 hover:scale-110 transition-transform font-black text-base`}
               >
                 <span>#{tag}</span>
                 <span class="font-mono text-[10px] opacity-70">×{n}</span>

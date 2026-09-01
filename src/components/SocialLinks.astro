@@ -19,7 +19,7 @@ void locale; void t;
           rel={s.href.startsWith('http') ? 'me noopener' : undefined}
           aria-label={s.name}
           title={s.name}
-          class={`inline-flex items-center justify-center w-10 h-10 border-2 border-black dark:border-white bg-white dark:bg-[#0a0a0a] text-black dark:text-white hover:-translate-y-0.5 hover:-rotate-3 transition-transform ${s.hover}`}
+          class={`inline-flex items-center justify-center w-11 h-11 b-border bg-white dark:bg-[#0a0a0a] text-black dark:text-white hover:-translate-y-1 hover:-rotate-6 hover:b-bg-yellow transition-all ${s.hover}`}
         >
           <Fragment set:html={s.svg} />
         </a>

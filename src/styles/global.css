@@ -10,8 +10,10 @@
     "Source Han Sans SC", sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", "SFMono-Regular", Menlo, Consolas,
     "Liberation Mono", monospace;
-  /* Brutalism 配色：仅 黑 + 白 + 黄。色彩锚点只一个。 */
+  /* Brutalism 配色：仅 黑 + 白 + 黄 */
   --b-yellow: #facc15;
+  --b-border-width: 5px;
+  --b-border-width-lg: 6px;
 }
 
 html {
@@ -23,8 +25,8 @@ html {
 
 body {
   @apply bg-white text-black;
-  font-size: 17px;
-  line-height: 1.75;
+  font-size: 18px;
+  line-height: 1.7;
   font-feature-settings: "kern", "liga", "calt";
 }
 
@@ -34,46 +36,49 @@ html.dark body {
 
 /* ============================================
    Brutalism 工具类（黑 + 黄 二色制）
+   更粗、更硬、更大胆
    ============================================ */
 
 /* 黑粗边框 */
-.b-border   { border: 3px solid #000; }
-.b-border-2 { border: 4px solid #000; }
+.b-border   { border: 5px solid #000; }
+.b-border-2 { border: 6px solid #000; }
+.b-border-b { border-bottom: 6px solid #000; }
 html.dark .b-border,
-html.dark .b-border-2 { border-color: #fff; }
+html.dark .b-border-2,
+html.dark .b-border-b { border-color: #fff; }
 
-/* 硬阴影：仅 黑 / 黄 */
-.b-shadow-yellow { box-shadow: 6px 6px 0 0 var(--b-yellow); }
-.b-shadow-black  { box-shadow: 6px 6px 0 0 #000; }
-html.dark .b-shadow-black { box-shadow: 6px 6px 0 0 #fff; }
+/* 硬阴影：仅 黑 / 黄，偏移更大 */
+.b-shadow-yellow { box-shadow: 10px 10px 0 0 var(--b-yellow); }
+.b-shadow-black  { box-shadow: 10px 10px 0 0 #000; }
+html.dark .b-shadow-black { box-shadow: 10px 10px 0 0 #fff; }
 
-/* hover 时偏移变大 */
+/* 卡片：悬浮时更强烈的位移 + 阴影 */
 .b-card {
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 .b-card:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 10px 10px 0 0 #000;
+  transform: translate(-4px, -4px);
+  box-shadow: 16px 16px 0 0 #000;
 }
-html.dark .b-card:hover { box-shadow: 10px 10px 0 0 #fff; }
+html.dark .b-card:hover { box-shadow: 16px 16px 0 0 #fff; }
 
 /* 纯色块（黄、黑） */
 .b-bg-yellow { background: var(--b-yellow); }
 .b-bg-black  { background: #000; color: #fff; }
 html.dark .b-bg-black { background: #fff; color: #000; }
 
-/* 黑底白字小标 */
+/* 黑底白字小标 —— 更厚重 */
 .b-tag {
   display: inline-block;
-  padding: 0.25rem 0.625rem;
+  padding: 0.35rem 0.75rem;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 700;
+  font-size: 0.75rem;
+  font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   background: #000;
   color: #fff;
-  border: 2px solid #000;
+  border: 3px solid #000;
 }
 html.dark .b-tag { background: #fff; color: #000; border-color: #fff; }
 
@@ -81,51 +86,60 @@ html.dark .b-tag { background: #fff; color: #000; border-color: #fff; }
 .b-tag-chip {
   display: inline-flex;
   align-items: center;
-  padding: 0.125rem 0.5rem;
+  padding: 0.2rem 0.6rem;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 800;
   text-transform: lowercase;
   letter-spacing: 0.02em;
   background: #000;
   color: #fff;
-  border: 2px solid #000;
+  border: 3px solid #000;
 }
 html.dark .b-tag-chip { background: #fff; color: #000; border-color: #fff; }
-
-/* Display 字号 —— 收紧字距 + 重字重 + 紧行高，保留 brutalist 冲击力 */
-.display-1 { font-size: clamp(2rem, 6vw, 4.5rem); font-weight: 900; letter-spacing: -0.04em; line-height: 0.95; }
-.display-2 { font-size: clamp(1.75rem, 4.5vw, 3rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.0; }
-.display-3 { font-size: clamp(1.25rem, 2.5vw, 1.75rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; }
-
-/* 中文标题：负字距 + 紧行高仍能保留（方块字间距天然大，轻微收紧不挤压）；
-   但 max 字号比英文小，避免一行塞不下；同时行高微调到 1.15 给字模上下留白 */
-.display-1:lang(zh) {
-  font-size: clamp(1.75rem, 5vw, 3rem);
-  letter-spacing: -0.015em;
-  line-height: 1.15;
-}
-.display-2:lang(zh) {
-  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
-  letter-spacing: -0.015em;
-  line-height: 1.2;
-}
-
-/* 首字下沉：桌面 5rem，窄屏 3rem 防止错位 */
-.drop-cap::first-letter {
-  float: left;
-  font-size: 3rem;
-  line-height: 0.85;
-  font-weight: 900;
-  margin: 0.3rem 0.5rem 0 0;
+.b-tag-chip:hover,
+a:hover .b-tag-chip {
   background: var(--b-yellow);
   color: #000;
-  border: 3px solid #000;
+  border-color: #000;
+}
+html.dark .b-tag-chip:hover,
+html.dark a:hover .b-tag-chip {
+  border-color: #fff;
+}
+
+/* Display 字号 —— 更张扬的字号对比 */
+.display-1 { font-size: clamp(2.75rem, 9vw, 6.5rem); font-weight: 900; letter-spacing: -0.05em; line-height: 0.9; }
+.display-2 { font-size: clamp(2.25rem, 6.5vw, 4.5rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1.0; }
+.display-3 { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; }
+
+/* 中文标题 */
+.display-1:lang(zh) {
+  font-size: clamp(2.25rem, 7vw, 4rem);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.display-2:lang(zh) {
+  font-size: clamp(1.75rem, 5vw, 3rem);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+/* 首字下沉 */
+.drop-cap::first-letter {
+  float: left;
+  font-size: 3.5rem;
+  line-height: 0.85;
+  font-weight: 900;
+  margin: 0.2rem 0.6rem 0 0;
+  background: var(--b-yellow);
+  color: #000;
+  border: 5px solid #000;
   padding: 0.25rem 0.5rem;
 }
 @media (min-width: 640px) {
   .drop-cap::first-letter {
-    font-size: 5rem;
+    font-size: 6rem;
   }
 }
 html.dark .drop-cap::first-letter { border-color: #fff; }
@@ -133,16 +147,16 @@ html.dark .drop-cap::first-letter { border-color: #fff; }
 /* 大引号 */
 .b-quote {
   position: relative;
-  padding-left: 2.5rem;
-  font-weight: 600;
+  padding-left: 3rem;
+  font-weight: 700;
   font-style: italic;
 }
 .b-quote::before {
   content: '"';
   position: absolute;
-  left: -0.5rem;
-  top: -1.5rem;
-  font-size: 5rem;
+  left: -0.75rem;
+  top: -2rem;
+  font-size: 6rem;
   line-height: 1;
   color: #000;
   font-weight: 900;
@@ -153,43 +167,95 @@ html.dark .b-quote::before { color: var(--b-yellow); }
 .b-note {
   display: inline-block;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 700;
+  font-size: 0.75rem;
+  font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 0.15rem 0.45rem;
+  letter-spacing: 0.12em;
+  padding: 0.2rem 0.55rem;
   background: var(--b-yellow);
   color: #000;
-  border: 2px solid #000;
+  border: 3px solid #000;
   transform: rotate(-2deg);
 }
 
+/* 厚重按钮 */
+.b-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border: 5px solid #000;
+  background: #fff;
+  color: #000;
+  box-shadow: 6px 6px 0 0 var(--b-yellow);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+html.dark .b-btn {
+  background: #0a0a0a;
+  color: #fff;
+  border-color: #fff;
+}
+.b-btn:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 10px 10px 0 0 var(--b-yellow);
+  background: var(--b-yellow);
+  color: #000;
+}
+
+/* 装饰分隔条 */
+.b-rule {
+  height: 8px;
+  background: #000;
+}
+html.dark .b-rule { background: #fff; }
+
+/* 装饰方块点 */
+.b-dot {
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  background: var(--b-yellow);
+  border: 3px solid #000;
+}
+html.dark .b-dot { border-color: #fff; }
+
 /* prose 排版 */
 .prose {
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
   line-height: 1.85;
 }
 .prose h2 {
-  font-weight: 800;
-  letter-spacing: -0.025em;
+  font-weight: 900;
+  letter-spacing: -0.03em;
   margin-top: 3em;
   margin-bottom: 1em;
   padding-bottom: 0.3em;
-  border-bottom: 3px solid currentColor;
+  border-bottom: 5px solid currentColor;
+}
+.prose h3 {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-top: 2em;
 }
 .prose blockquote {
-  border-left: 4px solid #000;
+  border-left: 6px solid #000;
   padding-left: 1.5rem;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 1.05em;
 }
 html.dark .prose blockquote { border-color: #fff; }
 .prose code:not(pre code) {
   background: var(--b-yellow);
-  border: 2px solid #000;
+  border: 3px solid #000;
   padding: 0.05em 0.35em;
   border-radius: 0;
   font-size: 0.9em;
-  font-weight: 700;
+  font-weight: 800;
   color: #000;
 }
 html.dark .prose code:not(pre code) {
@@ -199,24 +265,36 @@ html.dark .prose code:not(pre code) {
 }
 .prose a {
   text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
-  font-weight: 600;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 4px;
+  font-weight: 700;
 }
 .prose a:hover {
   background: var(--b-yellow);
   color: #000;
 }
+.prose strong {
+  font-weight: 900;
+}
+.prose hr {
+  border: 0;
+  height: 5px;
+  background: #000;
+  margin: 2.5em 0;
+}
+html.dark .prose hr { background: #fff; }
+.prose ul > li::marker { color: var(--b-yellow); font-size: 1.2em; }
+.prose ol > li::marker { font-weight: 900; color: var(--b-yellow); }
 
 /* 选区高亮：黄底黑字 */
 ::selection { background: var(--b-yellow); color: #000; }
 
 /* 滚动条：黑方块 */
-::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar { width: 14px; height: 14px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
   background: #000;
-  border: 3px solid #fff;
+  border: 4px solid #fff;
 }
 html.dark ::-webkit-scrollbar-thumb { background: #fff; border-color: #0a0a0a; }
 ::-webkit-scrollbar-thumb:hover { background: var(--b-yellow); border-color: #fff; }
@@ -234,10 +312,87 @@ html.dark ::-webkit-scrollbar-thumb { background: #fff; border-color: #0a0a0a; }
   transform: translate(-8px, -50%);
   opacity: 0;
   color: #000;
-  font-weight: 700;
-  font-size: 1.1em;
+  font-weight: 900;
+  font-size: 1.25em;
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 html.dark .list-row::after { color: #fff; }
-.list-row:hover { padding-left: 8px; }
+.list-row:hover { padding-left: 12px; }
 .list-row:hover::after { opacity: 1; transform: translate(0, -50%); }
+
+/* 搜索弹窗 brutalism 化 */
+.search-dialog {
+  margin: 6vh auto;
+  width: min(680px, 94vw);
+  border: 6px solid #000;
+  border-radius: 0;
+  padding: 0;
+  background: #fff;
+  color: #000;
+  box-shadow: 16px 16px 0 0 var(--b-yellow);
+}
+:where(.dark) .search-dialog {
+  background: #0a0a0a;
+  color: #fff;
+  border-color: #fff;
+}
+.search-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+.search-dialog[open] {
+  animation: search-fade-in 0.15s ease-out;
+}
+@keyframes search-fade-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.search-result {
+  display: block;
+  padding: 1rem 1.25rem;
+  margin: 0 0.5rem;
+  border: 3px solid transparent;
+  transition: background 0.1s, border-color 0.1s;
+}
+.search-result:hover,
+.search-result.is-active {
+  background: var(--b-yellow);
+  border-color: #000;
+  color: #000;
+}
+:where(.dark) .search-result:hover,
+:where(.dark) .search-result.is-active {
+  border-color: #fff;
+}
+.search-result-title {
+  font-weight: 900;
+  font-size: 1rem;
+  color: inherit;
+}
+.search-result-meta {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: inherit;
+  margin-top: 0.25rem;
+  opacity: 0.7;
+}
+
+/* TOC active */
+.toc-link {
+  border-left: 4px solid transparent;
+  margin-left: -4px;
+  padding: 0.35rem 0.75rem;
+  font-weight: 700;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.toc-link.toc-active {
+  color: #000;
+  border-left-color: #000;
+  background: var(--b-yellow);
+  font-weight: 900;
+}
+:where(.dark) .toc-link.toc-active {
+  color: #000;
+  border-left-color: #000;
+  background: var(--b-yellow);
+}

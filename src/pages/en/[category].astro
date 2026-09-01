@@ -40,24 +40,29 @@ const styleFor = (tag: string) => {
   description={categoryDesc(category, locale)}
   locale={locale}
 >
-  <header class="mb-12">
-    <a href="/en/" class="group inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider mb-6 hover:b-bg-yellow hover:px-2 transition-all">
+  <header class="mb-16">
+    <a href="/en/" class="group inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider mb-8 hover:b-bg-yellow hover:px-2 transition-all">
       <span aria-hidden="true" class="inline-block transition-transform group-hover:-translate-x-1">←</span>
       {ui.nav.home}
     </a>
-    <span class={`b-tag ${category === 'work' ? '' : 'b-bg-yellow'} mb-4 inline-block`}>§ {category}</span>
-    <h1 class="display-1 mt-4 mb-3">{categoryLabel(category, locale)}</h1>
-    <p class="text-base leading-relaxed max-w-xl">
+    <span class={`b-tag ${category === 'work' ? '' : 'b-bg-yellow'} mb-6 inline-block`}>§ {category}</span>
+    <h1 class="display-1 mt-6 mb-4">{categoryLabel(category, locale)}</h1>
+    <div class="flex items-center gap-3 mb-4">
+      <span class="inline-block w-20 h-2 b-bg-yellow"></span>
+      <span class="inline-block w-4 h-2 bg-black dark:bg-white"></span>
+      <span class="inline-block w-2 h-2 bg-black dark:bg-white"></span>
+    </div>
+    <p class="text-lg leading-relaxed max-w-xl font-medium">
       {categoryDesc(category, locale)}
     </p>
-    <p class="text-sm font-mono font-bold uppercase tracking-wider mt-4">
+    <p class="text-sm font-mono font-black uppercase tracking-wider mt-4">
       [{items.length}] {items.length === 1 ? 'item' : 'items'}
     </p>
   </header>
 
   {
     items.length === 0 ? (
-      <p class="b-border-2 b-bg-yellow p-6 inline-block font-bold">
+      <p class="b-border-2 b-bg-yellow p-8 inline-block font-black text-lg">
         {category === 'work' ? ui.home.workEmpty : category === 'study' ? ui.home.studyEmpty : ui.home.lifeEmpty}
       </p>
     ) : (
@@ -69,7 +74,7 @@ const styleFor = (tag: string) => {
               <div>
                 <PostCard post={post} />
                 {post.data.tags.length > 0 && (
-                  <div class="mt-2 flex flex-wrap gap-1.5 ml-1">
+                  <div class="mt-3 flex flex-wrap gap-2 ml-1">
                     {post.data.tags.map((tag: string) => (
                       <span class={`b-tag-chip ${styleFor(tag)}`}>#{tag}</span>
                     ))}
@@ -82,7 +87,7 @@ const styleFor = (tag: string) => {
             return (
               <a
                 href={`/en/notes/${note.id}/`}
-                class="list-row group b-border-2 bg-white dark:bg-[#0a0a0a] flex items-baseline justify-between gap-4 px-5 py-4 hover:b-bg-yellow transition-colors"
+                class="list-row group b-border-2 bg-white dark:bg-[#0a0a0a] flex items-baseline justify-between gap-4 px-6 py-5 text-lg hover:b-bg-yellow transition-colors"
               >
                 <span class="font-bold">{note.data.title}</span>
                 <time class="text-xs font-mono font-bold uppercase tracking-wider shrink-0 tabular-nums">

@@ -47,50 +47,62 @@ const sectionEmpty: Record<Category, string> = {
 const avatarInitial = SITE.author.charAt(0).toUpperCase();
 ---
 
-<BaseLayout description={SITE.description} locale={locale}>
-  <section class="relative pt-4 pb-20 mb-20">
-    <div aria-hidden="true" class="absolute top-4 -right-4 w-24 h-24 b-bg-yellow -rotate-6 hidden md:block"></div>
-    <div aria-hidden="true" class="absolute top-72 left-32 w-3 h-3 bg-black dark:bg-white hidden md:block"></div>
-    <div aria-hidden="true" class="absolute top-80 left-44 w-2 h-2 b-bg-yellow hidden md:block"></div>
+<BaseLayout description={SITE.description} locale={locale} containerClass="max-w-5xl">
+  <section class="relative pt-8 pb-28 mb-28 overflow-hidden">
+    <!-- 背景装饰：左上角大黄色块 + 右下角小方块 -->
+    <div aria-hidden="true" class="absolute -top-8 -left-8 w-28 h-28 md:w-44 md:h-44 b-bg-yellow -rotate-12"></div>
+    <div aria-hidden="true" class="absolute bottom-28 right-6 w-5 h-5 b-bg-yellow border-2 border-black dark:border-white rotate-6"></div>
 
-    <div class="flex items-center gap-3 mb-6">
-      <span class="b-tag">v1.0</span>
+    <!-- 顶栏：左侧 v1.0 标签，右侧黄色装饰块 -->
+    <div class="relative flex items-start justify-between mb-16">
+      <span class="b-tag mt-1">v1.0</span>
+      <span aria-hidden="true" class="w-14 h-14 md:w-20 md:h-20 b-bg-yellow border-2 border-black dark:border-white -rotate-6 shrink-0"></span>
     </div>
 
-    <h1 class="display-1 mb-10">
+    <!-- 超大标题 -->
+    <h1 class="display-1 mb-8">
       {SITE.author.split('').map((ch) => (
-        <span class="inline-block hover:-translate-y-1 transition-transform">{ch}</span>
+        <span class="inline-block hover:-translate-y-2 transition-transform">{ch}</span>
       ))}
-      <span class="inline-block b-bg-yellow b-border-2 px-3 ml-1 -rotate-2">.</span>
     </h1>
 
-    <div class="relative inline-block max-w-2xl mb-12 b-shadow-yellow z-10">
-      <div class="relative b-border bg-white dark:bg-[#0a0a0a] p-5">
-        <p class="text-lg leading-relaxed relative z-10">
-          {ui.bio}
-        </p>
-      </div>
+    <!-- 标题分隔线：更粗的黑色线 + 更大黄色方块 -->
+    <div class="flex items-center gap-4 mb-16">
+      <div class="h-2 flex-1 bg-black dark:bg-white"></div>
+      <span aria-hidden="true" class="w-8 h-8 b-bg-yellow border-2 border-black dark:border-white -rotate-3 shrink-0"></span>
     </div>
 
-    <div class="flex flex-col sm:flex-row items-start gap-8 relative z-0">
-      <div class="relative shrink-0">
-        <div aria-hidden="true" class="absolute -inset-1 b-bg-yellow -rotate-2"></div>
-        <img
-          src={SITE.avatar}
-          alt={SITE.author}
-          width="120"
-          height="120"
-          class="relative w-[120px] h-[120px] object-cover b-border-2 bg-white"
-          onerror={`this.onerror=null;this.replaceWith(Object.assign(document.createElement('div'),{className:'relative w-[120px] h-[120px] b-border-2 b-bg-yellow flex items-center justify-center text-5xl font-black text-black',textContent:'${avatarInitial}'}))`}
-        />
+    <!-- 简介 + 头像区：桌面端并排 -->
+    <div class="grid md:grid-cols-[1fr_auto] gap-10 items-start">
+      <div class="relative inline-block max-w-2xl b-shadow-yellow">
+        <div class="absolute -left-3 top-4 bottom-4 w-1.5 b-bg-yellow"></div>
+        <div class="relative b-border bg-white dark:bg-[#0a0a0a] p-7 pl-10">
+          <p class="text-xl leading-relaxed font-medium">
+            {ui.bio}
+          </p>
+        </div>
       </div>
 
-      <div class="flex flex-col gap-3">
-        <div class="flex items-center gap-2">
-          <span class="b-tag">{locale === 'en' ? 'find me' : '找到我'}</span>
-          <span aria-hidden="true" class="font-mono">→</span>
+      <div class="flex flex-col sm:flex-row md:flex-col gap-6 items-start">
+        <div class="relative shrink-0">
+          <div aria-hidden="true" class="absolute -inset-2 b-bg-yellow -rotate-3"></div>
+          <img
+            src={SITE.avatar}
+            alt={SITE.author}
+            width="140"
+            height="140"
+            class="relative w-[140px] h-[140px] object-cover b-border-2 bg-white"
+            onerror={`this.onerror=null;this.replaceWith(Object.assign(document.createElement('div'),{className:'relative w-[140px] h-[140px] b-border-2 b-bg-yellow flex items-center justify-center text-6xl font-black text-black',textContent:'${avatarInitial}'}))`}
+          />
         </div>
-        <SocialLinks locale={locale} />
+
+        <div class="flex flex-col gap-4">
+          <div class="flex items-center gap-2">
+            <span class="b-tag">{locale === 'en' ? 'find me' : '找到我'}</span>
+            <span aria-hidden="true" class="font-mono text-xl">→</span>
+          </div>
+          <SocialLinks locale={locale} />
+        </div>
       </div>
     </div>
   </section>
@@ -104,13 +116,13 @@ const avatarInitial = SITE.author.charAt(0).toUpperCase();
         </div>
         <a
           href={categoryPath(cat, locale)}
-          class="b-border px-4 py-2 text-sm font-bold uppercase tracking-wider hover:b-bg-yellow hover:-rotate-1 transition-all inline-flex items-center gap-2"
+          class="b-btn"
         >
           {sectionViewAll[cat]} <span aria-hidden="true">→</span>
         </a>
       </div>
       {items[cat].length === 0 ? (
-        <p class="b-border-2 b-bg-yellow p-6 inline-block font-bold">{sectionEmpty[cat]}</p>
+        <p class="b-border-2 b-bg-yellow p-8 inline-block font-black text-lg">{sectionEmpty[cat]}</p>
       ) : (
         <div class="grid gap-6">
           {items[cat].map((item) =>
@@ -119,7 +131,7 @@ const avatarInitial = SITE.author.charAt(0).toUpperCase();
             ) : (
               <a
                 href={`/notes/${item.entry.id}/`}
-                class="list-row group b-border-2 bg-white dark:bg-[#0a0a0a] flex items-baseline justify-between gap-4 px-5 py-4 hover:b-bg-yellow transition-colors"
+                class="list-row group b-border-2 bg-white dark:bg-[#0a0a0a] flex items-baseline justify-between gap-4 px-6 py-5 text-lg hover:b-bg-yellow transition-colors"
               >
                 <span class="font-bold">{item.title}</span>
                 <time class="text-xs font-mono uppercase tracking-wider tabular-nums shrink-0">

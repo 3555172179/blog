@@ -8,8 +8,8 @@ interface Props {
 const { page, locale = detectLocale(Astro.url.pathname) } = Astro.props;
 const { currentPage, lastPage, url } = page;
 const ui = t(locale);
-const baseBtn = 'inline-flex items-center gap-1 px-4 py-2 b-border-2 text-sm font-bold uppercase tracking-wider transition-transform';
-const activeCls = 'hover:b-bg-yellow hover:-translate-y-0.5';
+const baseBtn = 'inline-flex items-center gap-2 px-5 py-3 b-border-2 text-sm font-black uppercase tracking-wider transition-all';
+const activeCls = 'hover:b-bg-yellow hover:text-black hover:-translate-y-1 hover:-rotate-1';
 const disabledCls = 'opacity-30 cursor-not-allowed';
 ---
 {lastPage > 1 && (

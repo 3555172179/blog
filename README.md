@@ -29,14 +29,3 @@ npm run preview  # 预览构建产物
 2. Vercel 新建项目，选这个仓库，框架自动识别为 Astro
 3. 确认 build 命令 `astro build`、输出目录 `dist`，部署即可
 4. 部署后把 Vercel 域名填回 `src/consts.ts` 的 `SITE.url`
-
-## 后续阶段
-
-- ② 样式与交互：TOC scroll spy、分页、标签页、响应式打磨
-- ③ 社区发现：Giscus 留言、Fuse.js 搜索、Buttondown 订阅、社交分享
-- ④ SEO 扩展：JSON-LD、自动翻译链接、sitemap 已就绪
-- ⑤ 工作台接入：把 `workspace.html` 放进 `public/`，访问 `/workspace.html`
-
-## 工作台
-
-阶段⑤会把 `workspace.html` 放进 `public/` 目录，与博客数据隔离，访问 `/workspace.html`。
