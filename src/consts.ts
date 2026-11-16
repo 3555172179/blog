@@ -45,10 +45,8 @@ const wrap = (inner) =>
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">${inner}</svg>`;
 
 export const SOCIAL_LINKS = [
-  { name: 'X',        href: 'https://x.com/bruceyu',          svg: wrap(ICONS.x),        hover: 'hover:text-black dark:hover:text-white' },
-  { name: 'Facebook', href: 'https://facebook.com/your-page', svg: wrap(ICONS.facebook), hover: 'hover:text-black dark:hover:text-white' },
-  { name: 'LinkedIn', href: 'https://linkedin.com/in/your-id', svg: wrap(ICONS.linkedin), hover: 'hover:text-black dark:hover:text-white' },
-  { name: 'YouTube',  href: 'https://youtube.com/@your-channel', svg: wrap(ICONS.youtube), hover: 'hover:text-black dark:hover:text-white' },
-  { name: 'TikTok',   href: 'https://tiktok.com/@your-username', svg: wrap(ICONS.tiktok), hover: 'hover:text-black dark:hover:text-white' },
-  { name: 'RSS',      href: '/rss.xml',                       svg: wrap(ICONS.rss),     hover: 'hover:text-black dark:hover:text-white' },
+  { name: 'X',        href: 'https://x.com/ziboyu1987',                  svg: wrap(ICONS.x),        hover: 'hover:text-black dark:hover:text-white' },
+  { name: 'Facebook', href: 'https://www.facebook.com/duo.duo.90226',    svg: wrap(ICONS.facebook), hover: 'hover:text-black dark:hover:text-white' },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/bruce-yu-4805963b6', svg: wrap(ICONS.linkedin), hover: 'hover:text-black dark:hover:text-white' },
+  { name: 'RSS',      href: '/rss.xml',                                 svg: wrap(ICONS.rss),     hover: 'hover:text-black dark:hover:text-white' },
 ];
