@@ -22,8 +22,9 @@ const itemsHtml = toc.map((h) => `
 const list = `<ul class="toc-list space-y-1.5 text-sm">${itemsHtml}</ul>`;
 ---
 
+{/* TOC 吸顶：xl:self-start 必须有。flex 容器默认 align-items:stretch，会把 TOC 拉成与文章等高，sticky 失去滚动余量就不生效。 */}
 {hasToc && (
-  <div class="w-full xl:w-56 xl:sticky xl:top-20 xl:shrink-0">
+  <div class="w-full xl:w-56 xl:self-start xl:sticky xl:top-20 xl:shrink-0">
     {/* 桌面端：固定侧栏 */}
     <nav class="hidden xl:block" aria-label={tocTitle}>
       <p class="b-tag b-bg-yellow mb-4">§ {tocTitle}</p>

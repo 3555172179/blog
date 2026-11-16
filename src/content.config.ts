@@ -8,7 +8,12 @@ const blogSchema = z.object({
   title: z.string(),
   description: z.string(),
   pubDate: z.coerce.date(),
-  updatedDate: z.coerce.date().optional(),
+  // 模板里 updatedDate 留空时 YAML 得到 null，而 optional() 只放行 undefined，
+  // 会被 coerce 成 new Date(null) 即 1970-01-01。这里先把空值归一为 undefined。
+  updatedDate: z.preprocess(
+    (v) => (v === null || v === '' ? undefined : v),
+    z.coerce.date().optional()
+  ),
   tags: z.array(z.string()).default([]),
   category: categoryEnum,
   draft: z.boolean().default(false),
