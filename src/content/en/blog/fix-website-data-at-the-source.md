@@ -1,6 +1,6 @@
 ---
-title: When Website Content Is Wrong, Check the Data Source First
-description: "Patching a page may hide a content problem without solving it. This article explains a more reliable approach to website operations: clarify data definitions, preserve source boundaries, and test every place that reuses the data."
+title: The Record That Didn't Belong Was Never on the Page
+description: "A category page kept showing content that did not belong to it. I patched the template first, and two weeks later the same problem came back on a different page."
 pubDate: 2026-11-16
 updatedDate:
 tags: [website-operations, data-quality, web-development]
@@ -8,52 +8,62 @@ category: work
 draft: false
 ---
 
-Website content problems often show up as interface problems: an unrelated item appears in a category, a card carries the wrong label, or the same record means different things on different pages. The quickest response is to add a condition to the component and hide the visible symptom.
+Late on a Friday afternoon, a colleague sent me a screenshot. The third row of a category page showed an item that clearly did not belong there. Under the image she had written one line: how did this get in.
 
-But when the underlying data is wrong, each interface patch adds another exception. A better first step is to trace how the content is created, organized, transformed, and reused across the site.
+I opened the list component, found the loop, and added a check. If the category field did not match the current page, skip the item. I refreshed. The row was gone. I sent the screenshot back. Fixed, as far as anyone could tell, in under twenty minutes.
 
-## Separate the symptom from the cause
+Two weeks later a different list page had a similar problem. This time a card carried a brand name that had nothing to do with anything we sell. I went to add another check and stopped with my hands on the keyboard. This site renders the same data in a category page, a listing page, search results, the homepage, and two language versions. That is seven or eight places. One check each, plus one more every time we add a page, and nobody would ever dare delete any of them.
 
-Pages present data; the data source defines what that data means. The distinction sounds obvious, but day-to-day operations can blur it. An exception added to make one page look right may conceal an earlier classification mistake, a faulty mapping, or an ambiguous field definition.
+So I left the template alone and went looking for where the data came from.
 
-Start an investigation with three questions:
+## Following the field backwards
 
-1. Where was this record originally entered?
-2. Which mappings, categories, or transformations did it pass through?
-3. Which pages, lists, or search features consume it?
+The content on this site is not written into the templates. It is read from a structured data source. The operations team maintains records in a sheet: name, category, tags, a description, an image. Pages filter by category. Tags decide which tag pages a record appears on.
 
-Following that path usually reveals a reusable fix more quickly than adding another condition at the point of display.
+Walking back from the page, I ended up at a mapping table. It was built during the first bulk import, and it converted each supplier's original product name into the name and category we use on the site. About forty rows. Some of those mappings had been reclassified six months earlier, and the table was never updated. So those records kept sitting under a category they no longer belonged to.
 
-## Make the data model reflect real boundaries
+On the page it looked like content wandering in from nowhere. In the data it was an old mapping that nobody had reason to look at again.
 
-A content model is part of an operating process, not just a technical implementation. A website may need to show services, reference solutions, and products available for purchase, but those are not the same type of content. If the data structure does not distinguish them, visitors may mistake a reference for an in-stock promise, while staff have to explain the difference through copy or visual design alone.
+Deleting those rows took less than a minute.
 
-A more reliable model uses fields and content types to make those boundaries explicit: which records are informational, which are examples or references, and which represent items that can actually be purchased. Pages can then render according to known meaning instead of guessing from a title.
+If I had kept adding checks to the template, though, they would still be sitting in that table, and every data sync would carry a fresh batch of them back in. Next time they would surface on a different page.
 
-This does not mean every site needs a complex back office. A small site can begin with simple practices: a shared vocabulary for categories, clear required fields, an identified data owner, and separate fields for information with different purposes. The goal is to make the meaning understandable to the next person maintaining it.
+## Why the page is always the first instinct
 
-## Test the full impact after a fix
+I have thought about this. The page is visible. A screenshot points at an exact spot. A change can be verified with a refresh. You can send a screenshot back and close the loop in one exchange.
 
-Correcting a source can change several pages at once. Checking only the page where the issue first appeared is not enough, especially when the same data feeds category pages, search, recommendations, or localized versions.
+Data is not like that. It sits in a sheet or a JSON file, and before you can change it you have to explain that the problem is not the page. That explanation is hard to land in the moment. The other person is looking at a broken page. You are telling them the data is broken, which sounds like a way of saying it is not your problem.
 
-A practical regression checklist can include:
+There is a more practical reason too. Fixing the page means opening one file. Fixing the data means first working out which places consume that data. Ten minutes against half a day.
 
-- Does the original page now show the correct content?
-- Are other pages using the same data still accurate?
-- Did filters, tags, or search results change unexpectedly?
-- Does the layout behave with no records, one record, and many records?
-- Do Chinese and English pages still show content from their own language collections?
+Half a day, weighed against eight checks scattered across the site, is the better trade.
 
-The audit should follow the data's reuse. It does not have to be elaborate, but it should cover the most likely affected entry points rather than only the line that changed.
+## When the field does not say what it means
 
-## Operations and development need shared definitions
+The same site had a harder problem than a misplaced record.
 
-Data governance is not only a technical task. Operations teams understand how content is categorized and what can be promised publicly; developers translate those definitions into fields, validation, and page behavior. If both sides use different terms for the same content, errors recur during entry, display, and maintenance.
+The product listing held more than eighty vehicle models, all rendered through one card component, each with an inquiry button at the bottom. Most of them were not stock. They were reference builds, configurations we had put together for a specific requirement. A customer would click through and ask what this one costs, and sales would have to answer that it is no longer available, or that it would have to be quoted again from scratch.
 
-A few lightweight publishing agreements can prevent that cycle: how new records are categorized, who checks an update, how older data is migrated, and where uncertain records should wait for clarification. These agreements are often more effective than accumulating interface-specific exceptions.
+Operations was clear about it. These are examples, not inventory. But in the data they shared a single type with the real products and nearly the same fields. The only difference was one sentence in the description. The template cannot read that sentence and decide. It renders everything the same way, so a case study gets an inquiry button and a price-shaped promise it cannot keep.
 
-## In closing
+No amount of condition-writing in the template fixes that, because the template is not missing a rule. It is missing a fact. We added a type field with three values: information, reference, and in stock. Operations has to pick one when entering a record, and a wrong choice is visible at entry instead of six weeks later on a live page. Reference cards render without the inquiry button.
 
-When website content is confusing, inspect the source and the content definitions before changing the page. Clear boundaries in the data model, followed by regression checks across every reuse point, reduce repeated patches and make a site easier to maintain.
+Adding the field was easy. A dropdown. The hard part was going back through the existing records and deciding which type each one was. That took over a week. A few I could not call on my own, so I asked operations, and there were two they had to argue about between themselves.
 
-The approach applies to product catalogs, service pages, content categories, and multilingual sites. The implementation can vary with the size of the site, but one principle holds: accurate presentation starts with clear data.
+## The pages I opened afterwards
+
+The trouble with fixing data is that you change one place and affect many.
+
+After the mapping cleanup I opened the related pages one by one. Category pages in both languages. A few keywords typed into search, to see whether the results still made sense. Tag pages. The homepage entry points. Then the edge cases: a category with a single record left in it, a filter that returns nothing, whether the empty state still held its layout or collapsed.
+
+None of that is difficult. Miss one and it comes back as a screenshot.
+
+One part I still do not do well: judging how far the impact reaches. The data is reused, but the paths it travels are not written down anywhere. I work from memory and from searching the code. That holds while a project is small. It stops holding once it is not.
+
+## Where I have landed
+
+These days my first question is where the record came in.
+
+Most of the time the answer is not on the page. It is at the point of entry, in a mapping table nobody remembers the reason for, in a field whose meaning changed once and was never announced.
+
+Patching the page is not forbidden. When something is broken on a Friday afternoon, patch it. Just go back and look at the data afterwards. Otherwise it will find another page and do this again.
