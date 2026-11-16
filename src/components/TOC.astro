@@ -24,7 +24,7 @@ const list = `<ul class="toc-list space-y-1.5 text-sm">${itemsHtml}</ul>`;
 
 {/* 目录随文档流走，不做 sticky：滚动时与文章的相对位置保持不变。 */}
 {hasToc && (
-  <div class="w-full xl:w-56 xl:shrink-0">
+  <div class="w-full xl:w-56 xl:self-start xl:sticky xl:top-20 xl:shrink-0">
     {/* 桌面端：侧栏 */}
     <nav class="hidden xl:block" aria-label={tocTitle}>
       <p class="b-tag b-bg-yellow mb-4">§ {tocTitle}</p>

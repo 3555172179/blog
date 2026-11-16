@@ -36,8 +36,7 @@ const postUrl = new URL(postPath, SITE.url).toString();
   containerClass="max-w-6xl"
   locale={locale}
 >
-  {/* 窄屏：vertical 堆叠，TOC 在文章之上；桌面：horizontal 横排，TOC 在右侧 sticky。
-      两种布局靠 TOC 自身 w-full xl:w-56 + sticky 切换。 */}
+  {/* 窄屏：TOC 在文章之上；桌面：TOC 在右侧吸顶，滚动时保留在视野中。 */}
   <div class="flex flex-col-reverse xl:flex-row gap-6 xl:gap-12">
     <article class="prose dark:prose-invert max-w-none flex-1 min-w-0">
       <header class="not-prose mb-12">
