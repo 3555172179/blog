@@ -1,6 +1,6 @@
 ---
-title: The Record That Didn't Belong Was Never on the Page
-description: "A category page kept showing content that did not belong to it. I patched the template first, and two weeks later the same problem came back on a different page."
+title: "Website Content Errors: Check the Data Source Before Fixing the Page"
+description: "A category page kept showing items that didn't belong. Patching the template hid the symptom until it returned two weeks later. How to trace content errors to their data source."
 pubDate: 2026-11-16
 updatedDate:
 tags: [website-operations, data-quality, web-development]

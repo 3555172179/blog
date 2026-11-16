@@ -1,6 +1,6 @@
 ---
-title: 那条不该出现的记录，不在页面里
-description: 分类页里混进了不属于这个类目的内容。我先改了模板，两周后同一个问题换了个页面又出现，才回头去看数据是从哪进来的。
+title: 网站内容错误排查：先查数据源，再改页面
+description: 分类页混进了不属于该分类的内容，只改模板挡住了症状，两周后又在别的页面复发。记录一次从页面回到数据源的排查过程：分类错位、字段含义不清，以及改完之后的回归检查。
 pubDate: 2026-11-16
 updatedDate:
 tags: [website-operations, data-quality, web-development]
