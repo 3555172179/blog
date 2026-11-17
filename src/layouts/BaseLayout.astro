@@ -71,6 +71,16 @@ const ogLocale = locale === 'en' ? 'en_US' : 'zh_CN';
         } catch (e) {}
       })();
     </script>
+
+    {/* Google 代码（GTM-573J4T4G）：is:inline 保证按原样输出 */}
+    <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-573J4T4G"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+    </script>
   </head>
   <body class="min-h-screen flex flex-col">
     <Header locale={locale} />

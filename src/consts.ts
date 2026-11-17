@@ -1,7 +1,7 @@
 export const SITE = {
   title: 'Bruce Yu · 外贸手记',
   description: '外贸运营与业务实战 · 学习笔记 · 生活随笔',
-  url: 'https://your-blog.vercel.app',
+  url: 'https://blog.svvvv.vip',
   author: 'Bruce Yu',
   bio: '在外贸行业做运营与业务。这里是实战复盘、学习方法、生活随笔。',
   avatar: '/avatar.jpg',
