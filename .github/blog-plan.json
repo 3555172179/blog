@@ -1,0 +1,206 @@
+{
+  "settings": {
+    "model": "deepseek-v4-pro",
+    "fallbackModel": "auto",
+    "maxCategoryIdleDays": 7,
+    "singleGapPublishProbability": 0.5
+  },
+  "lastPublishDate": "2026-11-17",
+  "lastPublishedByCategory": {
+    "work": "2026-11-17",
+    "study": "2026-11-17",
+    "life": null
+  },
+  "topics": [
+    {
+      "id": 1,
+      "category": "work",
+      "topic": "外贸邮件英文：那些\"正确但没人这么说\"的句子",
+      "slug": "email-english-nobody-uses",
+      "status": "published",
+      "publishedDate": "2026-11-17"
+    },
+    {
+      "id": 2,
+      "category": "study",
+      "topic": "英文进步卡在 B1/B2 的原因",
+      "slug": "b1-b2-english-learning-plateau-reasons",
+      "status": "published",
+      "publishedDate": "2026-11-17"
+    },
+    {
+      "id": 3,
+      "category": "life",
+      "topic": "工作里学会\"记一笔，晚点再判断\"",
+      "slug": null,
+      "status": "pending",
+      "publishedDate": null
+    },
+    {
+      "id": 4,
+      "category": "work",
+      "topic": "独立站上线第一周该检查什么",
+      "slug": null,
+      "status": "pending",
+      "publishedDate": null
+    },
+    {
+      "id": 5,
+      "category": "study",
+      "topic": "外贸沟通里中文思维直译的坑",
+      "slug": null,
+      "status": "pending",
+      "publishedDate": null
+    },
+    {
+      "id": 6,
+      "category": "life",
+      "topic": "外贸人的时差排班：把客户分布画成一张表",
+      "slug": null,
+      "status": "pending",
+      "publishedDate": null
+    },
+    {
+      "id": 7,
+      "category": "work",
+      "topic": "客户不回复，什么时候该停止跟进",
+      "slug": null,
+      "status": "pending",
+      "publishedDate": null
+    },
+    {
+      "id": 8,
+      "category": "study",
+      "topic": "英文自我介绍：邮件签名和 LinkedIn 怎么写",
+      "slug": null,
+      "status": "pending",
+      "publishedDate": null
+    },
+    {
+      "id": 9,
+      "category": "life",
+      "topic": "用一张表格管好自己的日常开支",
+      "slug": null,
+      "status": "pending",
+      "publishedDate": null
+    },
+    {
+      "id": 10,
+      "category": "work",
+      "topic": "跟进邮件怎么写才不显得催",
+      "slug": null,
+      "status": "pending",
+      "publishedDate": null
+    },
+    {
+      "id": 11,
+      "category": "study",
+      "topic": "英文邮件里最常见的几个小错误",
+      "slug": null,
+      "status": "pending",
+      "publishedDate": null
+    },
+    {
+      "id": 12,
+      "category": "life",
+      "topic": "把一周时间记下来，才知道时间去哪了",
+      "slug": null,
+      "status": "pending",
+      "publishedDate": null
+    },
+    {
+      "id": 13,
+      "category": "work",
+      "topic": "收到询盘，第一句话怎么回",
+      "slug": null,
+      "status": "pending",
+      "publishedDate": null
+    },
+    {
+      "id": 14,
+      "category": "study",
+      "topic": "背单词：从\"认识\"到\"会用\"差在哪",
+      "slug": null,
+      "status": "pending",
+      "publishedDate": null
+    },
+    {
+      "id": 15,
+      "category": "life",
+      "topic": "小习惯坚持不下去，是因为目标太大",
+      "slug": null,
+      "status": "pending",
+      "publishedDate": null
+    },
+    {
+      "id": 16,
+      "category": "work",
+      "topic": "外贸网站该用中文还是英文",
+      "slug": null,
+      "status": "pending",
+      "publishedDate": null
+    },
+    {
+      "id": 17,
+      "category": "study",
+      "topic": "看美剧学英语，为什么对你没用",
+      "slug": null,
+      "status": "pending",
+      "publishedDate": null
+    },
+    {
+      "id": 18,
+      "category": "work",
+      "topic": "双语网站内容怎么组织",
+      "slug": null,
+      "status": "pending",
+      "publishedDate": null
+    },
+    {
+      "id": 19,
+      "category": "study",
+      "topic": "英文日记写什么，才不会三天放弃",
+      "slug": null,
+      "status": "pending",
+      "publishedDate": null
+    },
+    {
+      "id": 20,
+      "category": "life",
+      "topic": "给生活做减法：扔东西前先问三个问题",
+      "slug": null,
+      "status": "pending",
+      "publishedDate": null
+    }
+  ],
+  "backlog": [
+    {
+      "category": "work",
+      "topic": "独立站要不要放博客，写了给谁看"
+    },
+    {
+      "category": "work",
+      "topic": "网站图片优化：客户在慢网络里打开你的站"
+    },
+    {
+      "category": "work",
+      "topic": "报价单里顺序和有效期的影响"
+    },
+    {
+      "category": "work",
+      "topic": "网站统计该看哪几个数字"
+    },
+    {
+      "category": "work",
+      "topic": "首页没有询价的原因，多数不是设计"
+    },
+    {
+      "category": "work",
+      "topic": "建站工具怎么选：先想清楚谁来维护"
+    },
+    {
+      "category": "work",
+      "topic": "怎么让文章不像 AI 写的"
+    }
+  ]
+}
