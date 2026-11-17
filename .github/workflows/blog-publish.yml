@@ -1,0 +1,50 @@
+name: Blog auto publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Publish even if today already had a post or random skip applies"
+        required: false
+        default: "false"
+  schedule:
+    # Times are UTC; CST = UTC+8, all slots land between 08:00 and 21:30 CST.
+    # The script itself decides (randomly) whether a trigger actually publishes,
+    # producing a 1-to-2-day interval with irregular publish times.
+    - cron: "23 0 * * *"   # 08:23 CST
+    - cron: "47 1 * * *"   # 09:47 CST
+    - cron: "11 3 * * *"   # 11:11 CST
+    - cron: "53 4 * * *"   # 12:53 CST
+    - cron: "37 6 * * *"   # 14:37 CST
+    - cron: "59 7 * * *"   # 15:59 CST
+    - cron: "33 9 * * *"   # 17:33 CST
+    - cron: "41 11 * * *"  # 19:41 CST
+    - cron: "7 13 * * *"   # 21:07 CST
+
+concurrency:
+  group: blog-publish
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install SDK
+        working-directory: .github/blog-bot
+        run: npm install --no-audit --no-fund
+
+      - name: Publish next post
+        env:
+          FORCE_PUBLISH: ${{ github.event.inputs.force == 'true' && '1' || '0' }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node .github/blog-bot/publish.mjs

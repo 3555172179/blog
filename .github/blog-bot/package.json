@@ -1,0 +1,8 @@
+{
+  "name": "blog-bot",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@tencent-ai/workbuddy-cloud-sdk": "dev"
+  }
+}
