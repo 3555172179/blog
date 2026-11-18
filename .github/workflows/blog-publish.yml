@@ -47,4 +47,6 @@ jobs:
         env:
           FORCE_PUBLISH: ${{ github.event.inputs.force == 'true' && '1' || '0' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SERVERCHAN_SENDKEY: ${{ secrets.SERVERCHAN_SENDKEY }}
+          PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
         run: node .github/blog-bot/publish.mjs

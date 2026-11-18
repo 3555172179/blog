@@ -3,6 +3,7 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
+import { notifyPublished } from './notify.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(__dirname, '..', '..');
@@ -229,6 +230,15 @@ async function main() {
     execSync('git push origin main', { cwd: REPO_ROOT, stdio: 'inherit' });
   }
   log('PUSHED. Published', finalSlug, `(${target.category}) on ${today}`);
+
+  // WeChat notification is best-effort and never fails the publish.
+  await notifyPublished({
+    zhTitle: zh.title,
+    enTitle: en.title,
+    slug: finalSlug,
+    category: target.category,
+    date: today,
+  });
 }
 
 main().catch((e) => fail(e?.error?.code ? `${e.error.code}: ${e.message}` : (e.stack ?? e.message)));
