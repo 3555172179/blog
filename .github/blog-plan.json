@@ -5,9 +5,9 @@
     "maxCategoryIdleDays": 7,
     "singleGapPublishProbability": 0.5
   },
-  "lastPublishDate": "2026-11-18",
+  "lastPublishDate": "2026-11-19",
   "lastPublishedByCategory": {
-    "work": "2026-11-17",
+    "work": "2026-11-19",
     "study": "2026-11-17",
     "life": "2026-11-18"
   },
@@ -40,9 +40,9 @@
       "id": 4,
       "category": "work",
       "topic": "独立站上线第一周该检查什么",
-      "slug": null,
-      "status": "pending",
-      "publishedDate": null
+      "slug": "new-website-first-week-checklist",
+      "status": "published",
+      "publishedDate": "2026-11-19"
     },
     {
       "id": 5,
