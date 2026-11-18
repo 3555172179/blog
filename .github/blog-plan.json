@@ -5,11 +5,11 @@
     "maxCategoryIdleDays": 7,
     "singleGapPublishProbability": 0.5
   },
-  "lastPublishDate": "2026-11-17",
+  "lastPublishDate": "2026-11-18",
   "lastPublishedByCategory": {
     "work": "2026-11-17",
     "study": "2026-11-17",
-    "life": null
+    "life": "2026-11-18"
   },
   "topics": [
     {
@@ -32,9 +32,9 @@
       "id": 3,
       "category": "life",
       "topic": "工作里学会\"记一笔，晚点再判断\"",
-      "slug": null,
-      "status": "pending",
-      "publishedDate": null
+      "slug": "work-delayed-judgment-method",
+      "status": "published",
+      "publishedDate": "2026-11-18"
     },
     {
       "id": 4,
