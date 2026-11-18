@@ -37,7 +37,14 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
+
+      # Runner is a clean environment with no git identity; without this,
+      # `git commit` fails with "Author identity unknown" after the post is generated.
+      - name: Configure git identity
+        run: |
+          git config --global user.name "blog-bot"
+          git config --global user.email "blog-bot@users.noreply.github.com"
 
       - name: Install SDK
         working-directory: .github/blog-bot
