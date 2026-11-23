@@ -11,8 +11,8 @@ const PLAN_PATH = join(REPO_ROOT, '.github', 'blog-plan.json');
 const CONTENT_DIR = join(REPO_ROOT, 'src', 'content');
 
 const publicConfig = {
-  endpoint: 'https://wbapp-1zhjakga6vvsy8kljk61sh.app.workbuddy.host',
-  publishableKey: 'wbpk_1ZHJAkGa6vVsy8kLJk61sH_YYsvAIezjBPhbAQtmDKhU1PWsXc3Bage',
+  endpoint: 'https://blog-updater.app.workbuddy.host',
+  publishableKey: 'wbpk_pTqA4XiFLJTJE8D5jdQvLx_Q3bP3w1S1dU86sBMU15jeZoR7XiQ9F68',
 };
 
 const cloud = createWorkBuddyCloud({
