@@ -5,11 +5,11 @@
     "maxCategoryIdleDays": 7,
     "singleGapPublishProbability": 0.5
   },
-  "lastPublishDate": "2026-11-23",
+  "lastPublishDate": "2026-11-24",
   "lastPublishedByCategory": {
     "work": "2026-11-19",
     "study": "2026-11-23",
-    "life": "2026-11-18"
+    "life": "2026-11-24"
   },
   "topics": [
     {
@@ -56,9 +56,9 @@
       "id": 6,
       "category": "life",
       "topic": "外贸人的时差排班：把客户分布画成一张表",
-      "slug": null,
-      "status": "pending",
-      "publishedDate": null
+      "slug": "time-zone-schedule-client-table",
+      "status": "published",
+      "publishedDate": "2026-11-24"
     },
     {
       "id": 7,
