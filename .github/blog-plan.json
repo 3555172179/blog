@@ -5,10 +5,10 @@
     "maxCategoryIdleDays": 7,
     "singleGapPublishProbability": 0.5
   },
-  "lastPublishDate": "2026-11-19",
+  "lastPublishDate": "2026-11-23",
   "lastPublishedByCategory": {
     "work": "2026-11-19",
-    "study": "2026-11-17",
+    "study": "2026-11-23",
     "life": "2026-11-18"
   },
   "topics": [
@@ -48,9 +48,9 @@
       "id": 5,
       "category": "study",
       "topic": "外贸沟通里中文思维直译的坑",
-      "slug": null,
-      "status": "pending",
-      "publishedDate": null
+      "slug": "chinese-english-direct-translation-mistakes",
+      "status": "published",
+      "publishedDate": "2026-11-23"
     },
     {
       "id": 6,
