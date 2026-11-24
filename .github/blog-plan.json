@@ -5,9 +5,9 @@
     "maxCategoryIdleDays": 7,
     "singleGapPublishProbability": 0.5
   },
-  "lastPublishDate": "2026-11-24",
+  "lastPublishDate": "2026-11-25",
   "lastPublishedByCategory": {
-    "work": "2026-11-19",
+    "work": "2026-11-25",
     "study": "2026-11-23",
     "life": "2026-11-24"
   },
@@ -64,9 +64,9 @@
       "id": 7,
       "category": "work",
       "topic": "客户不回复，什么时候该停止跟进",
-      "slug": null,
-      "status": "pending",
-      "publishedDate": null
+      "slug": "when-to-stop-following-up",
+      "status": "published",
+      "publishedDate": "2026-11-25"
     },
     {
       "id": 8,
