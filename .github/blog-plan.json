@@ -5,10 +5,10 @@
     "maxCategoryIdleDays": 7,
     "singleGapPublishProbability": 0.5
   },
-  "lastPublishDate": "2026-11-25",
+  "lastPublishDate": "2026-11-26",
   "lastPublishedByCategory": {
     "work": "2026-11-25",
-    "study": "2026-11-23",
+    "study": "2026-11-26",
     "life": "2026-11-24"
   },
   "topics": [
@@ -72,9 +72,9 @@
       "id": 8,
       "category": "study",
       "topic": "英文自我介绍：邮件签名和 LinkedIn 怎么写",
-      "slug": null,
-      "status": "pending",
-      "publishedDate": null
+      "slug": "english-self-intro-email-linkedin-writing",
+      "status": "published",
+      "publishedDate": "2026-11-26"
     },
     {
       "id": 9,
