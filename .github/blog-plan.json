@@ -5,11 +5,11 @@
     "maxCategoryIdleDays": 7,
     "singleGapPublishProbability": 0.5
   },
-  "lastPublishDate": "2026-11-26",
+  "lastPublishDate": "2026-11-27",
   "lastPublishedByCategory": {
     "work": "2026-11-25",
     "study": "2026-11-26",
-    "life": "2026-11-24"
+    "life": "2026-11-27"
   },
   "topics": [
     {
@@ -80,9 +80,9 @@
       "id": 9,
       "category": "life",
       "topic": "用一张表格管好自己的日常开支",
-      "slug": null,
-      "status": "pending",
-      "publishedDate": null
+      "slug": "daily-expense-tracking-one-table",
+      "status": "published",
+      "publishedDate": "2026-11-27"
     },
     {
       "id": 10,
