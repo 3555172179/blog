@@ -5,9 +5,9 @@
     "maxCategoryIdleDays": 7,
     "singleGapPublishProbability": 0.5
   },
-  "lastPublishDate": "2026-11-27",
+  "lastPublishDate": "2026-11-28",
   "lastPublishedByCategory": {
-    "work": "2026-11-25",
+    "work": "2026-11-28",
     "study": "2026-11-26",
     "life": "2026-11-27"
   },
@@ -88,9 +88,9 @@
       "id": 10,
       "category": "work",
       "topic": "跟进邮件怎么写才不显得催",
-      "slug": null,
-      "status": "pending",
-      "publishedDate": null
+      "slug": "follow-up-email-not-pushy",
+      "status": "published",
+      "publishedDate": "2026-11-28"
     },
     {
       "id": 11,
