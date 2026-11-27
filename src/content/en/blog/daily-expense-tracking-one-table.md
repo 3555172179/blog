@@ -8,7 +8,7 @@ category: life
 draft: false
 ---
 
-Last Tuesday evening I sat at my kitchen table with a bank statement in one hand and a grocery receipt in the other, trying to remember why I had spent $43 at a convenience store on the 9th. I could not recall. That moment pushed me to stop using three different apps, two spreadsheets, and a notebook that I only opened on Sundays. I needed one table, on one page, that I could fill in every evening without feeling like an accountant.
+A charge of 43 yuan at a small shop on the 9th had no story attached to it. I cooked my own meals, rode my motorcycle to work, and never ordered takeout, yet the small deductions still added up to a number I could not explain. That was the moment I stopped juggling three apps, two spreadsheets, and a notebook I only opened on Sundays. I needed one table, on one page, that I could fill in every evening without feeling like an accountant.
 
 ## The problem with most expense tracking advice
 
@@ -16,7 +16,7 @@ Every article I read told me to categorize everything. Housing, transport, food,
 
 ## What my one table actually looks like
 
-I drew a table on a blank sheet of paper. The rows are days of the month, 1 through 31. The columns are only five: Food, Transport, Housing, Other, and Total. That is it. No subcategories, no tags, no notes. Every evening I spend about ninety seconds writing down the day's spending in those columns. Food means groceries plus eating out plus coffee. Transport means gas, bus fare, parking. Housing means rent or mortgage plus utilities. Other catches everything else. If I buy a book, it goes in Other. If I pay a medical bill, it goes in Other. The point is not to analyze categories. The point is to see the total number for each day and the running total for the month.
+I drew a table on a blank sheet of paper. The rows are days of the month, 1 through 31. The columns are only five: Food, Transport, Housing, Other, and Total. That is it. No subcategories, no tags, no notes. Every evening I spend about ninety seconds writing down the day's spending in those columns. Food means groceries and coffee, since I cook at home. Transport means fuel for the motorcycle and parking. Housing means rent plus utilities. Other catches everything else. If I buy a book, it goes in Other. If I pay a medical bill, it goes in Other. The point is not to analyze categories. The point is to see the total number for each day and the running total for the month.
 
 ## Why a paper table beats apps for me
 
@@ -28,12 +28,12 @@ I started on the first of a month with no idea what my real spending looked like
 
 ## How to start your own one-table system
 
-Take a sheet of paper. Draw a grid with 31 rows and 5 columns. Label the columns Food, Transport, Housing, Other, Total. Put the sheet somewhere you will see it every evening. Set a reminder on your phone for 9pm if you need one. Every evening, write down what you spent that day. Do not try to be perfect. If you forget a $2 coffee, do not go back and reconstruct the whole day. Just write what you remember. At the end of the month, add up each column. That is your entire review. No charts, no pie graphs, no guilt trip.
+Take a sheet of paper. Draw a grid with 31 rows and 5 columns. Label the columns Food, Transport, Housing, Other, Total. Put the sheet somewhere you will see it every evening. Set a reminder on your phone for 9pm if you need one. Every evening, write down what you spent that day. Do not try to be perfect. If you forget a small coffee purchase, do not go back and reconstruct the whole day. Just write what you remember. At the end of the month, add up each column. That is your entire review. No charts, no pie graphs, no guilt trip.
 
 ## The one mistake I made and how I fixed it
 
-In week two I started adding tiny categories in the margins, like a note that $12 of Food was actually dog treats. That turned into a mess. The table lost its simplicity. I crossed out the notes and went back to five columns. If I need more detail later, I can start a separate sheet. But for daily tracking, five columns is the maximum I can maintain. More than that and I stop using the table entirely.
+In week two I started adding tiny categories in the margins, like a note that part of Food was actually dog treats. That turned into a mess. The table lost its simplicity. I crossed out the notes and went back to five columns. If I need more detail later, I can start a separate sheet. But for daily tracking, five columns is the maximum I can maintain. More than that and I stop using the table entirely.
 
 ## What changed after two months
 
-I now know my monthly spending range within about $100. I know which weeks are expensive because of grocery runs and which days are quiet. I do not check the table during the day, only when I write in the evening. That single evening moment is enough. The table has become a mirror, not a judge. And when I look at last Tuesday's entry, I can see exactly what that $43 was for. It was a late night gas station stop for snacks and a phone charger. I remember now.
+I now know my monthly spending range within roughly a few hundred yuan. I know which weeks are expensive because of grocery runs and which days are quiet. I do not check the table during the day, only when I write in the evening. That single evening moment is enough. The table has become a mirror, not a judge. And when I look at the entry for the 9th, I can see exactly what that 43 yuan was for. It was fuel for the motorcycle on my way home. I remember now.

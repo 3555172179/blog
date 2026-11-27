@@ -67,7 +67,10 @@ function extractJson(text) {
 
 const STYLE_RULES = `
 写作硬约束：
-- 第一人称叙述，从一件具体的事写起，交代时间、场景、动作；允许有误判和代价。
+- 第一人称叙述，围绕一件具体的事写，交代真实代价，允许误判。开头形式必须多样：禁止用"某年某月某日几点，我坐在书桌/电脑前"这类时间加地点的固定句式开场；可从一句对话、一个物件、一处异常、一个决定或一个具体问题切入。不同文章不得复用同一套开头，正文也不要写精确到年月日和钟点的开场时间。
+  First-person narration around one concrete incident with a real cost. Vary the opening: never use a fixed "time + I sat at my desk" pattern. Open with dialogue, an object, an anomaly, a decision, or a question. Do not reuse the same opening across posts, and do not open with an exact date and clock time.
+- 不得编造作者的个人生活事实。作者真实情况：在淄博生活，骑摩托车通勤，不吃外卖，不坐地铁。涉及生活细节时必须与此一致，或写通用经验不点明具体事实。
+  Do not invent the author's personal life facts. Known facts: lives in Zibo, commutes by motorcycle, never eats takeout, does not use the subway. Keep details consistent or stay general.
 - 禁止列要点清单，禁止"首先/其次/最后"式结构，禁止"综上所述"式总结升华。
 - 标题含搜索词（问题现象 + 方法/结论），不要文学化短句。
 - description 是搜索结果第二行，要带关键词。
