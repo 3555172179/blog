@@ -8,7 +8,7 @@ category: work
 draft: false
 ---
 
-Last Tuesday at 9:40 in the morning, I sat down with a cup of coffee that went cold before I touched it. The site had gone live at midnight. I had spent three weeks building it, testing product pages on a staging URL, checking image compression, and rewriting the About page four times. Now it was live. And I realized I had no idea what to check first.
+The site had gone live at midnight. I had spent three weeks building it, testing product pages on a staging URL, checking image compression, and rewriting the About page four times. By the time it was live, I realized I had no idea what to check first.
 
 I opened the homepage on my phone. It loaded. Then I clicked the main menu. One of the dropdown items pointed to a 404 page. That was the moment I understood that launching a site is not the finish line. It is the first time the site meets real browsers, real screen sizes, and real users who will not tell you what is broken. They just leave.
 

@@ -8,7 +8,7 @@ category: study
 draft: false
 ---
 
-Last Tuesday evening I sat at my desk with a cup of cold coffee and a reading passage about supply chain logistics. I had read the same paragraph three times. I understood every word, but when I closed the document and tried to explain the main idea out loud, my mouth produced something like, "The thing is, companies need to, you know, move stuff better." That was the moment I admitted it: my English has been parked at B2 for about four years, and I have been doing almost nothing that actually moves it.
+I had read the same paragraph about supply chain logistics three times. I understood every word, but when I closed the document and tried to explain the main idea out loud, my mouth produced something like, "The thing is, companies need to, you know, move stuff better." That was the moment I admitted it: my English has been parked at B2 for about four years, and I have been doing almost nothing that actually moves it.
 
 I am a foreign trade practitioner. I write emails every day, join video calls, and read contracts in English. On paper, that sounds like full immersion. But my daily English is a closed loop. I use the same 800 words, the same three tenses, and the same polite phrases. My clients understand me. My boss does not complain. So my brain decided this level is good enough, and it stopped paying the cost of improvement.
 
@@ -34,4 +34,4 @@ Those mistakes were invisible to me because they never caused a breakdown in com
 
 I stopped reading articles just to understand them. Now I read one short article, close it, and write a 100-word summary without looking back. Then I compare my version to the original and note every place where my sentence structure collapsed into something simpler. I also record a 2-minute monologue three times a week about my work, then transcribe it by hand. Seeing my own broken sentences on paper is brutal, but it is the most honest mirror I have found.
 
-The cold coffee from last Tuesday is gone. The reading passage is still on my desk. But last night I explained its main idea out loud in four connected sentences, with one conditional and one passive construction. It was not elegant. It was not fast. But it was B2 pushing upward, and that is the only direction that matters.
+That supply chain passage is still somewhere in my browser history. But last night I explained its main idea out loud in four connected sentences, with one conditional and one passive construction. It was not elegant. It was not fast. But it was B2 pushing upward, and that is the only direction that matters.

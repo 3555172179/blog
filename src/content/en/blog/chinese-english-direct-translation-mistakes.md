@@ -8,7 +8,7 @@ category: study
 draft: false
 ---
 
-Last Tuesday afternoon I sat at my desk staring at a reply from a supplier. The email said: "We will try our best to solve your problem." I had written to them about a shipment that arrived two weeks late, and I needed a concrete date for the replacement parts. Their reply felt polite but empty. I spent twenty minutes drafting a follow-up, then deleted it twice. The problem was not their English. The problem was the thinking behind the English.
+"We will try our best to solve your problem." That line came from a supplier after a shipment arrived two weeks late. I needed a concrete date for the replacement parts. What I got was politeness with no date in it. I spent twenty minutes drafting a follow-up, then deleted it twice. The problem was not their English. The problem was the thinking behind the English.
 
 ## The mistake I kept making in my own writing
 

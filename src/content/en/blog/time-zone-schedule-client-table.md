@@ -8,7 +8,7 @@ category: life
 draft: false
 ---
 
-Last Tuesday I sat down at 11:40 pm with a cup of cold coffee and opened my inbox. A client in Brazil had sent three messages between 2 pm and 4 pm his time. I replied at midnight my time, which was early evening for him. He answered immediately, then asked why I always seemed to work at strange hours. I did not have a good answer.
+A client in Brazil wrote to me at 11:40 pm my time. He had sent three messages between 2 pm and 4 pm his time. I replied from bed, which was early evening for him. He answered immediately, then asked why I always seemed to work at strange hours. I did not have a good answer.
 
 That night I realized my schedule was not a schedule. It was a reaction loop. I checked my phone whenever I woke up, whenever I ate, whenever I could not sleep. Some clients got replies within minutes. Others waited a day because their morning was my middle of the night. I had no map of who was awake when.
 

@@ -8,7 +8,7 @@ category: life
 draft: false
 ---
 
-It was a Tuesday afternoon in late October, and I had just opened an email from a freight forwarder about a shipment delay. The message said the container would miss the cutoff by two days, which meant the buyer would likely ask for a discount or even cancel part of the order. I felt my face get warm. I typed out a reply immediately, something like "This is unacceptable, we agreed on the schedule weeks ago." Then I stopped. I remembered the rule I had been trying to follow for about a year: write it down, wait until tomorrow, then judge.
+The freight forwarder's email said the container would miss the cutoff by two days. The buyer would probably ask for a discount, or cancel part of the order. I felt my face get warm and typed out a reply: "This is unacceptable, we agreed on the schedule weeks ago." Then I stopped. I remembered the rule I had been trying to follow for about a year: write it down, wait until tomorrow, then judge.
 
 ## The afternoon I almost sent a bad reply
 

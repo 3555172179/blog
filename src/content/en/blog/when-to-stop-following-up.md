@@ -8,7 +8,7 @@ category: work
 draft: false
 ---
 
-Last Tuesday I sat at my desk at 9:40 in the evening, staring at an email thread that had gone quiet for the fifth time. The client had asked for a quotation on a bulk order of industrial fasteners back in August. I sent the quote, followed up three times, got one vague reply about checking with their engineering team, and then nothing. That night I typed another follow-up, read it twice, deleted it, and wrote it again with softer wording. I hit send. Ten minutes later I got an out-of-office reply saying the person had left the company. I had spent four months and eleven emails on someone who no longer worked there.
+The client had asked for a quotation on a bulk order of industrial fasteners back in August. I sent the quote, followed up three times, got one vague reply about checking with their engineering team, and then nothing. That night I typed another follow-up, read it twice, deleted it, and wrote it again with softer wording. I hit send. Ten minutes later I got an out-of-office reply saying the person had left the company. Four months and eleven emails, all spent on someone who no longer worked there.
 
 That moment forced me to build a simple rule for myself: stop when the cost of the next follow-up is higher than the probability of a reply times the value of the deal. It sounds cold, but it works.
 

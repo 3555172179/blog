@@ -8,7 +8,7 @@ category: study
 draft: false
 ---
 
-Last Tuesday afternoon, I sat at my desk staring at a blank LinkedIn profile section for twenty minutes. The cursor blinked. I had just received a connection request from a potential buyer in Germany, and before accepting, I wanted to make sure my own summary did not look like a robot wrote it. I opened three browser tabs with templates, copied a few lines, deleted them, and ended up writing nothing. That was the moment I realized my English self introduction problem was not about vocabulary. It was about not knowing what to leave out.
+A potential buyer in Germany sent me a connection request. Before accepting it, I spent twenty minutes staring at my own blank LinkedIn summary. The cursor blinked. I opened three tabs of templates, copied a few lines, deleted them, and ended up writing nothing. That was the moment I realized my English self introduction problem was not about vocabulary. It was about not knowing what to leave out.
 
 ## The email signature mistake I kept making for months
 

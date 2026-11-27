@@ -8,7 +8,7 @@ category: study
 draft: false
 ---
 
-上周四下午，我给一个欧洲潜在客户回邮件，写到末尾习惯性地把一段英文自我介绍粘进签名区，四行字，带公司名、职位、一句“We are a leading supplier in this industry”。发出去之后不到十分钟，对方回了一句“Thanks, but could you tell me who you are in one sentence?” 我盯着屏幕愣了几秒，意识到自己犯了个很低级的错误：我把 LinkedIn 式的自夸塞进了邮件签名，对方根本不想在商务沟通里看到这些。
+一段四行的英文自我介绍，被我顺手粘进了给欧洲客户的邮件签名区：公司名、职位，还有一句“We are a leading supplier in this industry”。不到十分钟，对方回了一句“Thanks, but could you tell me who you are in one sentence?”。我这才反应过来，自己把 LinkedIn 式的自夸塞进了邮件签名，对方根本不想在商务沟通里看到这些。
 
 这事让我重新想了一遍英文自我介绍在不同场景下的逻辑。邮件签名和 LinkedIn 个人简介看起来都是“介绍自己”，但阅读期待完全不同。邮件签名是收件人已经知道你在跟谁对话之后，用来快速确认身份和联系方式的，它要短、要实用，不能有营销腔。LinkedIn 简介则是陌生人第一次点进你主页时看的，需要交代你帮什么人解决什么问题，得有一点叙述感。
 

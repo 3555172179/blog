@@ -8,9 +8,7 @@ category: study
 draft: false
 ---
 
-上周三下午三点多，我坐在电脑前盯着那封写了四十分钟的邮件，手指在发送键上停了很久。收件人是一个谈了两个月的澳洲客户，前面几轮报价都聊得还行，但他在最近一封回信里问了一句："Can you confirm the delivery time? We need it before the end of next month." 我当时的回复第一版是："We will try our best to arrange it, but you should understand the production time is tight." 写完自己读了一遍，觉得哪里不对劲，又改成："It's a little difficult for us to finish before that date, but we will do it." 最后还是发了一个更委婉的版本。
-
-三天后客户回信，语气明显淡了，只说了一句"Thanks for the update, we will get back to you later." 然后就没有然后了。我回头翻聊天记录，才发现问题根本不在交期本身，而在前几轮邮件里我一直在用中文思维直译，每一句听起来都像在推卸责任或者给客户设门槛。
+"You should understand the production time is tight." 这句话是我亲手发给一个澳洲客户的。他只问了一句能不能下个月底前交货，我花了四十分钟解释排期，最后补上这句，觉得挺有理有据。三天后他回了句"Thanks for the update, we will get back to you later."，然后就没有然后了。回头翻邮件我才发现，问题不在交期，在我前几轮一直在用中文思维直译，每一句听起来都像在推卸责任或者给客户设门槛。
 
 ## 直译最伤人的一句话：你应该理解我们
 
