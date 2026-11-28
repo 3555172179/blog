@@ -5,10 +5,10 @@
     "maxCategoryIdleDays": 7,
     "singleGapPublishProbability": 0.5
   },
-  "lastPublishDate": "2026-11-28",
+  "lastPublishDate": "2026-11-29",
   "lastPublishedByCategory": {
     "work": "2026-11-28",
-    "study": "2026-11-26",
+    "study": "2026-11-29",
     "life": "2026-11-27"
   },
   "topics": [
@@ -96,9 +96,9 @@
       "id": 11,
       "category": "study",
       "topic": "英文邮件里最常见的几个小错误",
-      "slug": null,
-      "status": "pending",
-      "publishedDate": null
+      "slug": "common-email-mistakes-fix",
+      "status": "published",
+      "publishedDate": "2026-11-29"
     },
     {
       "id": 12,
